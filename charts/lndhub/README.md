@@ -14,7 +14,7 @@ kubectl create secret generic lndhub-config --from-literal=config='{ "redis": { 
 ```
 - Create a secret with the LND credentials:
 ```
-kubectl create secret generic lnd-credentials --from-file=readonly.macaroon --from-file=tls.cert
+kubectl create secret generic lnd-credentials --from-file=admin.macaroon --from-file=tls.cert
 ```
 
 ## Installing the Chart
