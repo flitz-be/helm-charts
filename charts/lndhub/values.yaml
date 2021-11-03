@@ -9,8 +9,9 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1.4.1"
+containerPort: 8080
 env:
-  PORT: "80"
+  PORT: "8080"
   LND_CERT_FILE: "/lnd/tls.cert"
   LND_ADMIN_MACAROON_FILE: "/lnd/admin.macaroon"
 secrets:

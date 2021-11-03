@@ -10,7 +10,7 @@
 
 - Create a secret with config:
 ```
-kubectl create secret generic lndhub-config --from-literal=config='{ "redis": { "port": 6379, "host": "$REDIS_IP", "family": 4, "password": "$REDIS_PASSWORD", "db": 0 }, "lnd": { "url": "$LND_IP:$LND_GRPC_PORT", "password": ""}}'
+kubectl create secret generic lndhub-config --from-literal=config='{ "redis": { "port": 6379, "host": "$REDIS_IP", "tls": {},  "family": 4, "password": "$REDIS_PASSWORD", "db": 0 }, "lnd": { "url": "$LND_IP:$LND_GRPC_PORT", "password": ""}}'
 ```
 - Create a secret with the LND credentials:
 ```
