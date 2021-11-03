@@ -33,8 +33,7 @@ their default values.
 
 Parameter                  | Description                        | Default
 -----------------------    | ---------------------------------- | ----------------------------------------------------------
-`image.repository`         | Image source repository name       | `kiwiidb/c-lightning`
-`image.tag`                | `lndhub` release tag.                 | `0.9.3`
+`image.repository`         | Image source repository name       | `bluewalletorganization/lndhub`
+`image.tag`                | `lndhub` release tag.                 | `v1.4.1`
 `image.pullPolicy`         | Image pull policy                  | `IfNotPresent`
-`internalServices.rpcPort` | RPC Port                           | `9835`
 `resources`                | CPU/Memory resource requests/limits| `{}`
