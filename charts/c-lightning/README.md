@@ -34,9 +34,9 @@ kubectl create secret generic c-lightning-extra-config --from-file=./lightning.c
 To install the chart with the release name `my-release`:
 
 ```
-$ git clone https://github.com/flitz-be/helm-charts/tree/master/charts/c-lightning
+$ git clone https://github.com/flitz-be/helm-charts
 $ cd helm-charts/charts/c-lightning
-$ helm install --name my-release .
+$ helm upgrade --install my-release .
 ```
 ## Configuration
 
