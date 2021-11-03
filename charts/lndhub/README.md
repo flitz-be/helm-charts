@@ -7,6 +7,7 @@
 * Kubernetes 1.8+
 * A Redis database
 * An LND node (possibly running in the same k8s namespace or cluster). Install with [Fold's lnd chart](https://github.com/thesis/helm-charts).
+* Nginx and Cert-manager running in your cluster
 
 - Create a secret with config:
 ```
@@ -17,6 +18,7 @@ kubectl create secret generic lndhub-config --from-literal=config='{ "redis": { 
 kubectl create secret generic lnd-credentials --from-file=admin.macaroon --from-file=tls.cert
 ```
 
+- Change the 2 `hosts` values in `values.yaml` to your hostname.
 ## Installing the Chart
 
 To install the chart with the release name `my-release`:
