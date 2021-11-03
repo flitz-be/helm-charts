@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "c-lightning.fullname" . }}
+  labels:
+    app: {{ template "c-lightning.name" . }}
+    chart: {{ template "c-lightning.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ template "c-lightning.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "c-lightning.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ template "c-lightning.fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          args:
+            {{- toYaml .Values.args | nindent 12 }}
+          resources:
+  {{ toYaml .Values.resources | indent 10 }}
+          ports:
+            - name: rpc
+              containerPort: {{ .Values.internalServices.rpcPort }}
+            - name: p2p
+              containerPort: {{ .Values.externalServices.p2pPort }}
+          volumeMounts:
+            - name: data
+              mountPath: /root/.lightning
+            {{ if .Values.extraConfig.enabled }}
+            - name: config
+              mountPath: /root/config
+            {{ end }}
+          lifecycle:
+            preStop:
+              exec:
+                # Make sure we safely quit c-lightning so we don't corrupt
+                # anything
+                command: ["lightning-cli", "stop"]
+      volumes:
+        - name: data
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "c-lightning.fullname" .) }}
+        {{- else }}
+          emptyDir: {}
+        {{- end -}}
+        {{ if .Values.extraConfig.enabled }}
+        - name: config
+          projected:
+            sources:
+            - secret:
+                name: {{ .Values.extraConfig.secretName }}
+        {{ end }}
