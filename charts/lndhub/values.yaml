@@ -13,7 +13,20 @@ env:
   PORT: "80"
   LND_CERT_FILE: "/lnd/tls.cert"
   LND_ADMIN_MACAROON_FILE: "/lnd/admin.macaroon"
-  LND_CERT_FILE: "/lnd/tls.cert"
+secrets:
+  CONFIG:
+    secretName: lndhub-config
+    secretKey: config
+volumeMounts:
+  - name: lnd-credentials
+    mountPath: "/lnd"
+    readOnly: true
+volumes:
+  - name: lnd-credentials
+    projected:
+      sources:
+      - secret:
+          name: lnd-credentials
 
 imagePullSecrets: []
 nameOverride: ""
