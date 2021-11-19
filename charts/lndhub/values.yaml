@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: bluewalletorganization/lndhub
+  repository: kiwiidb/lndhub
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.4.1"
+  tag: "master"
 containerPort: 8080
 env:
   PORT: "8080"
