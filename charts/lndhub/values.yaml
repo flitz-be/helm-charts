@@ -8,7 +8,7 @@ image:
   repository: kiwiidb/lndhub
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "master"
+  tag: "v1.5.0"
 containerPort: 8080
 env:
   PORT: "8080"
