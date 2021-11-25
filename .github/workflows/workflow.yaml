@@ -26,4 +26,4 @@ jobs:
                 kubectl: 1.17.0
                 helmv3: 3.0.2
                 command: |
-                  ./helm_package_and_push lnd $HELM_REPO_NAME $HELM_REPO_S3_URL
+                  ./helm_package_and_push.sh lnd $HELM_REPO_NAME $HELM_REPO_S3_URL
