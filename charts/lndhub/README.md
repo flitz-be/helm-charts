@@ -35,7 +35,7 @@ their default values.
 
 Parameter                  | Description                        | Default
 -----------------------    | ---------------------------------- | ----------------------------------------------------------
-`image.repository`         | Image source repository name       | `bluewalletorganization/lndhub`
+`image.repository`         | Image source repository name       | `kiwiidb/lndhub`
 `image.tag`                | `lndhub` release tag.                 | `v1.4.1`
 `image.pullPolicy`         | Image pull policy                  | `IfNotPresent`
 `resources`                | CPU/Memory resource requests/limits| `{}`
