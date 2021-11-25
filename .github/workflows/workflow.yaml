@@ -1,0 +1,29 @@
+name: Build Helm chart
+on: push
+jobs:
+    build:
+        env:
+          USERNAME: kiwiidb
+          AWS_DEFAULT_REGION: eu-central-1
+          HELM_REPO_NAME: flitz-helm-charts
+          HELM_REPO_S3_URL: s3://flitz-helm-charts/charts
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        strategy:
+          matrix:
+            platform: [ ubuntu-latest ]
+        runs-on: ${{ matrix.platform }}
+        steps:
+            - name: Configure git for private modules
+              env:
+                TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+              run: git config --global url."https://${USERNAME}:${TOKEN}@github.com".insteadOf "https://github.com"
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Run Kubernetes tools
+              uses: stefanprodan/kube-tools@v1
+              with:
+                kubectl: 1.17.0
+                helmv3: 3.0.2
+                command: |
+                  ./helm_package_and_push lnd $HELM_REPO_NAME $HELM_REPO_S3_URL
