@@ -27,3 +27,5 @@ jobs:
                 helmv3: 3.0.2
                 command: |
                   ./.github/workflows/helm_package_and_push.sh lnd charts/lnd ${HELM_REPO_NAME} ${HELM_REPO_S3_URL}
+                  ./.github/workflows/helm_package_and_push.sh lndhub charts/lndhub ${HELM_REPO_NAME} ${HELM_REPO_S3_URL}
+                  ./.github/workflows/helm_package_and_push.sh c-lightning charts/c-lightning ${HELM_REPO_NAME} ${HELM_REPO_S3_URL}
