@@ -104,6 +104,17 @@ spec:
             requests:
               cpu: "10m"
         {{- end }}
+        {{- if .Values.lit.enable }}
+        - name: lit
+          image: {{ .Values.lit.image.repository }}:{{ .Values.lit.image.tag }}
+          command: ["/bin/sh", "-c", "sleep 5 && litd --network={{ .Values.network }} --uipassword={{ .Values.lit.uipassword}}"]
+          volumeMounts:
+            - name: data
+              mountPath: /root/
+          resources:
+            requests:
+              cpu: "10m"
+        {{- end }}
       volumes:
         {{- if .Values.autoUnlock }}
         - name: secrets

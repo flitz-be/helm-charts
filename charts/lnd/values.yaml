@@ -73,3 +73,8 @@ pool:
   image:
     repository: thesisrobot/pool
     tag: v0.3.3-alpha
+lit:
+  enable: true
+  image:
+    repository: lightninglabs/lightning-terminal
+    tag: v0.6.0-alpha
