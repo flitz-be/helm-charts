@@ -1,0 +1,56 @@
+apiVersion: v1
+entries:
+  c-lightning:
+  - apiVersion: v1
+    appVersion: 0.9.3
+    created: "2021-12-06T14:14:04.388179436Z"
+    description: A C implementation of a Lightning Network node
+    digest: 5ff8e061f09312c9099b94993655ee27c9346ef0542ea16d4f7e2d3f3553b2a6
+    home: https://github.com/elementsproject/c-lightning
+    keywords:
+    - c-lightning
+    - cryptocurrency
+    - blockchain
+    - bitcoin
+    maintainers:
+    - email: kwinten.debacker@hotmail.com
+      name: kiwiidb
+    name: c-lightning
+    sources:
+    - https://github.com/kubernetes/charts
+    urls:
+    - https://flitz-be.github.io/helm-charts/c-lightning-0.1.0.tgz
+    version: 0.1.0
+  lnd:
+  - apiVersion: v1
+    appVersion: 0.13.3
+    created: "2021-12-06T14:14:04.388964144Z"
+    description: A golang implementation of a Lightning Network node
+    digest: c1b2300f152d68dc911d8c7e8d742f714e511b5a7b920d1313ee4fdd272aab37
+    home: https://github.com/lightningnetwork/lnd
+    keywords:
+    - lnd
+    - cryptocurrency
+    - blockchain
+    - bitcoin
+    maintainers:
+    - email: tdickman@gmail.com
+      name: tdickman
+    name: lnd
+    sources:
+    - https://github.com/kubernetes/charts
+    urls:
+    - https://flitz-be.github.io/helm-charts/lnd-0.4.8.tgz
+    version: 0.4.8
+  lndhub:
+  - apiVersion: v2
+    appVersion: v1.4.1
+    created: "2021-12-06T14:14:04.389536951Z"
+    description: A Helm chart for Kubernetes
+    digest: 39a5dfe2da8687e5c0ac1cee64227c79cb8fc5194b5b82ce9df3b967a4ad5592
+    name: lndhub
+    type: application
+    urls:
+    - https://flitz-be.github.io/helm-charts/lndhub-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-12-06T14:14:04.386462117Z"
