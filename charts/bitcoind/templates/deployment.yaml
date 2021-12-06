@@ -47,9 +47,9 @@ spec:
               containerPort: {{ .Values.service.testnetPort }}
             - name: testnetp2pport
               containerPort: {{ .Values.service.testnetP2pPort }}
-            - name: zmqRawBlockPort
+            - name: zmqrawblockport
               containerPort: {{ .Values.service.zmqRawBlockPort }}
-            - name: zmqRawTxPort
+            - name: zmqrawtxport
               containerPort: {{ .Values.service.zmqRawTxPort }}
           volumeMounts:
             - name: data

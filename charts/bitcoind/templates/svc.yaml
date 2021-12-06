@@ -15,12 +15,12 @@ spec:
     - name: p2p
       port: {{ .Values.service.p2pPort }}
       targetPort: p2p
-    - name: zmqRawBlockPort
+    - name: zmqrawblockport
       port: {{ .Values.service.zmqRawBlockPort }}
-      targetPort: zmqRawBlockPort
-    - name: zmqRawTxPort
+      targetPort: zmqrawblockport
+    - name: zmqrawtxport
       port: {{ .Values.service.zmqRawTxPort }}
-      targetPort: zmqRawTxPort
+      targetPort: zmqrawtxport
     - name: testnet
       port: {{ .Values.service.testnetPort }}
     - name: testnet-p2p
