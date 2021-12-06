@@ -3,9 +3,9 @@ entries:
   c-lightning:
   - apiVersion: v1
     appVersion: 0.9.3
-    created: "2021-12-06T14:14:26.325674698Z"
+    created: "2021-12-06T14:14:45.651290106Z"
     description: A C implementation of a Lightning Network node
-    digest: daac62c51ca181b6a355f4f3ecc28b6568aa858529d4ab2ca436d477f60b8a23
+    digest: a9a103945fcc28b8cd72302ce65b1e48273821671489fffaafd3c19b2654a832
     home: https://github.com/elementsproject/c-lightning
     keywords:
     - c-lightning
@@ -24,9 +24,9 @@ entries:
   lnd:
   - apiVersion: v1
     appVersion: 0.13.3
-    created: "2021-12-06T14:14:26.326333053Z"
+    created: "2021-12-06T14:14:45.651887413Z"
     description: A golang implementation of a Lightning Network node
-    digest: 133f88b18db52016476e6dd49cf2dd50c431b3764201775b7877028123d65271
+    digest: 9b7b78fd4d6e58ee471c2e4aa76e715241fc35f8e586e267326bd5719e802be6
     home: https://github.com/lightningnetwork/lnd
     keywords:
     - lnd
@@ -45,12 +45,12 @@ entries:
   lndhub:
   - apiVersion: v2
     appVersion: v1.4.1
-    created: "2021-12-06T14:14:26.326983607Z"
+    created: "2021-12-06T14:14:45.652363818Z"
     description: A Helm chart for Kubernetes
-    digest: 1185d2d2608914a518d734fe45884d617e6534e63f38c6d07df0591e9ae6218e
+    digest: 553a05db2640d4a8f516746da3a24f94b417abc780aa4aa65576daccfe162bf9
     name: lndhub
     type: application
     urls:
     - https://flitz-be.github.io/helm-charts/lndhub-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-06T14:14:26.324946038Z"
+generated: "2021-12-06T14:14:45.650601998Z"
