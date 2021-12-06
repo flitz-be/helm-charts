@@ -12,6 +12,8 @@ service:
   p2pPort: 8333
   testnetPort: 18332
   testnetP2pPort: 18333
+  zmqRawBlockPort: 28332
+  zmqRawTxPort: 28333
 
 persistence:
   enabled: true

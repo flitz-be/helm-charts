@@ -6,16 +6,12 @@ home: https://bitcoin.org/
 icon: https://bitcoin.org/img/icons/logotop.png
 keywords:
 - bitcoind
-- cryptocurrency
-- blockchain
 maintainers:
-- email: daniel@arilot.com
-  name: daniel-yavorovich
-- email: shiyanval@gmail.com
-  name: govale
+- email: kwinten@flitz.be
+  name: kiwiidb
 name: bitcoind
 sources:
 - https://github.com/kubernetes/charts
 - https://github.com/kuberstack/bitcoind
 - https://github.com/kylemanna/docker-bitcoind
-version: 0.2.3
+version: 0.3.0
