@@ -1,0 +1,17 @@
+apiVersion: v1
+appVersion: 0.17.1
+description: Bitcoin is an innovative payment network and a new kind of money.
+engine: gotpl
+home: https://bitcoin.org/
+icon: https://bitcoin.org/img/icons/logotop.png
+keywords:
+- bitcoind
+maintainers:
+- email: kwinten@flitz.be
+  name: kiwiidb
+name: bitcoind
+sources:
+- https://github.com/kubernetes/charts
+- https://github.com/kuberstack/bitcoind
+- https://github.com/kylemanna/docker-bitcoind
+version: 0.3.1
