@@ -1,11 +1,36 @@
 apiVersion: v1
 entries:
+  bitcoind:
+  - apiVersion: v1
+    appVersion: 0.17.1
+    created: "2021-12-06T16:08:47.735852238Z"
+    description: Bitcoin is an innovative payment network and a new kind of money.
+    digest: 1033f5f7e001f2147614b4595de9712d8982ba6c6396f31ed6ab33902ec88e30
+    home: https://bitcoin.org/
+    icon: https://bitcoin.org/img/icons/logotop.png
+    keywords:
+    - bitcoind
+    - cryptocurrency
+    - blockchain
+    maintainers:
+    - email: daniel@arilot.com
+      name: daniel-yavorovich
+    - email: shiyanval@gmail.com
+      name: govale
+    name: bitcoind
+    sources:
+    - https://github.com/kubernetes/charts
+    - https://github.com/kuberstack/bitcoind
+    - https://github.com/kylemanna/docker-bitcoind
+    urls:
+    - https://flitz-be.github.io/helm-charts/bitcoind-0.2.3.tgz
+    version: 0.2.3
   c-lightning:
   - apiVersion: v1
     appVersion: 0.9.3
-    created: "2021-12-06T14:18:51.737325137Z"
+    created: "2021-12-06T16:08:47.736391242Z"
     description: A C implementation of a Lightning Network node
-    digest: 9774374fdf74ed44995175fc39abebaf14c4d5cece8989be923206852c9f3027
+    digest: fcf8a462ba668b817d0d2c62ecd8e6d261c7a213d3499b18a1ee42e2b721e7e9
     home: https://github.com/elementsproject/c-lightning
     keywords:
     - c-lightning
@@ -24,9 +49,9 @@ entries:
   lnd:
   - apiVersion: v1
     appVersion: 0.13.3
-    created: "2021-12-06T14:18:51.737873544Z"
+    created: "2021-12-06T16:08:47.737151648Z"
     description: A golang implementation of a Lightning Network node
-    digest: 787464dd5b3c19a7969ff85acc26c25a43422deb0334106de6d6a71c30d0459c
+    digest: fcb28f693308ba880013da30c49174dbbe841f1390d1bc672e47b6b45b1107e2
     home: https://github.com/lightningnetwork/lnd
     keywords:
     - lnd
@@ -45,12 +70,12 @@ entries:
   lndhub:
   - apiVersion: v2
     appVersion: v1.4.1
-    created: "2021-12-06T14:18:51.738459552Z"
+    created: "2021-12-06T16:08:47.737868754Z"
     description: A Helm chart for Kubernetes
-    digest: 99f0b5ec562b5ad2725ec68151dc4a6f3cc5c72620954d31f50f8704a711ed33
+    digest: 6270c7baa06660715545abe7d2bac3de74ef3884203894702c4aa4a6ef5b8b80
     name: lndhub
     type: application
     urls:
     - https://flitz-be.github.io/helm-charts/lndhub-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-06T14:18:51.736720829Z"
+generated: "2021-12-06T16:08:47.734979331Z"
