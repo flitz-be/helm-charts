@@ -31,10 +31,13 @@ persistence:
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
-resources: {}
-#  requests:
-#    memory: 512Mi
-#    cpu: 300m
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 300m
+  limits:
+    memory: 512Mi
+    cpu: 300m
 
 # The network lnd is running on
 network: testnet
