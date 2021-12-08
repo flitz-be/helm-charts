@@ -44,6 +44,8 @@ spec:
           ports:
             - name: rpc
               containerPort: {{ .Values.internalServices.rpcPort }}
+            - name: rest
+              containerPort: {{ .Values.internalServices.restPort }}
             - name: p2p
               containerPort: {{ .Values.externalServices.p2pPort }}
           volumeMounts:

@@ -10,6 +10,23 @@ image:
 # Ports that are exposed to other pods in your cluster
 internalServices:
   rpcPort: 10009
+  restPort: 8080
+
+# Ingress for REST API
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+  hosts:
+    - host: lnd.dev.flitz.be
+      paths:
+        - path: /
+  tls:
+    - hosts:
+        - lnd.dev.flitz.be
+      secretName: lnd-tls-secret
 
 # Ports that are visible outside your cluster
 externalServices:
@@ -56,6 +73,7 @@ configurationFile:
     neutrino.addpeer=lnd.bitrefill.com:18333
     rpclisten=0.0.0.0:10009
     tlsextradomain=nodes-lnd-internal.nodes
+    tlsextradomain=lnd.dev.flitz.be
     tlsextraip=0.0.0.0
     protocol.wumbo-channels=1
 
