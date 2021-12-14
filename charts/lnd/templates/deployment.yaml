@@ -57,7 +57,7 @@ spec:
               subPath: lnd.conf
             {{- end }}
             - name: secrets
-              mountPath: /root/.lnd/wallet_password
+              mountPath: /passwords/wallet_password
               subPath: wallet_password
           lifecycle:
             preStop:

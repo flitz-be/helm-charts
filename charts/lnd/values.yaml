@@ -76,8 +76,7 @@ configurationFile:
     tlsextradomain=lnd.dev.flitz.be
     tlsextraip=0.0.0.0
     protocol.wumbo-channels=1
-# Uncomment if wallet already created
-#    wallet-unlock-password-file=/root/.lnd/wallet_password
+    wallet-unlock-password-file=/passwords/wallet_password
 autoUnlock: true
 autoUnlockPassword: password
 
