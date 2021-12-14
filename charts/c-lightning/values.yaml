@@ -4,7 +4,7 @@
 
 image:
   repository: kiwiidb/c-lightning
-  tag: v0.10.1
+  tag: v0.10.2
   pullPolicy: Always
 
 # Ports that are exposed to other pods in your cluster
@@ -20,6 +20,7 @@ args:
   - "--plugin=/opt/lightningd/plugins/trustedcoin_linux_amd64"
   - "--plugin=/opt/lightningd/plugins/sparko_linux_amd64"
   - "--plugin=/opt/lightningd/plugins/rebalance/rebalance.py"
+  - "--plugin=/usr/local/bin/clboss"
   - "--sparko-host=0.0.0.0"
   - "--experimental-offers"
   # required when extra config enabled
