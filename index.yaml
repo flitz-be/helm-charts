@@ -3,9 +3,9 @@ entries:
   bitcoind:
   - apiVersion: v1
     appVersion: 0.17.1
-    created: "2021-12-14T16:02:16.348033847Z"
+    created: "2021-12-14T16:28:17.200432731Z"
     description: Bitcoin is an innovative payment network and a new kind of money.
-    digest: 0d5f687dfa481a4399066d52e0286bf95e84714dbca8a75982799c6274ddb0f9
+    digest: 14c7395cd30bf237b8e26ded5bef809c59e5631f74bdd0d924077221584a4a99
     home: https://bitcoin.org/
     icon: https://bitcoin.org/img/icons/logotop.png
     keywords:
@@ -88,9 +88,9 @@ entries:
   c-lightning:
   - apiVersion: v1
     appVersion: 0.10.2
-    created: "2021-12-14T16:02:16.348473541Z"
+    created: "2021-12-14T16:28:17.200920125Z"
     description: A C implementation of a Lightning Network node
-    digest: a4f3f8fcff9f7c7063d1e6b830e9dd823c61e99af90ca60427b86bb324ca2b27
+    digest: 5c9704976fe9f1e18f20801a7f6effd45aa462d5c89f6dc638f4dc1324f9fa0b
     home: https://github.com/elementsproject/c-lightning
     keywords:
     - c-lightning
@@ -131,9 +131,9 @@ entries:
       artifacthub.io/prerelease: "false"
     apiVersion: v1
     appVersion: v1.6.1
-    created: "2021-12-14T16:02:16.358832506Z"
+    created: "2021-12-14T16:28:17.209033221Z"
     description: A Helm chart for cert-manager
-    digest: 51e97521bdec4455ebe18941968fb0341cdffd587052f89430a9bf2b24e509de
+    digest: 75caa810475ba92fad87ee5815c4e68686f75ef2459e0da5549c4f8a4247444d
     home: https://github.com/jetstack/cert-manager
     icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.png
     keywords:
@@ -153,9 +153,9 @@ entries:
   lnd:
   - apiVersion: v1
     appVersion: 0.13.3
-    created: "2021-12-14T16:02:16.359502097Z"
+    created: "2021-12-14T16:28:17.209656813Z"
     description: A golang implementation of a Lightning Network node
-    digest: 45a30f344ac7331ed7245ee474598744b4884cee156d3e4750c14f1ee46c2c46
+    digest: 7bd4e06913e23975172590c782e925e990615d93c4f7791fa34773abbe1457b3
     home: https://github.com/lightningnetwork/lnd
     keywords:
     - lnd
@@ -292,9 +292,9 @@ entries:
   lndhub:
   - apiVersion: v2
     appVersion: v1.4.1
-    created: "2021-12-14T16:02:16.359993391Z"
+    created: "2021-12-14T16:28:17.210106308Z"
     description: A Helm chart for Kubernetes
-    digest: a4d3da191777669461f36bba815a8dc80c575419d9250889c8517f5d9a372967
+    digest: 27f8fe6c7a75a5b47895b6997c3bc7cc0da7db8dc66cb2ba487baf88fc7cfbd2
     name: lndhub
     type: application
     urls:
@@ -303,11 +303,11 @@ entries:
   nginx-ingress:
   - apiVersion: v1
     appVersion: v0.34.1
-    created: "2021-12-14T16:02:16.362457759Z"
+    created: "2021-12-14T16:28:17.212340679Z"
     deprecated: true
     description: DEPRECATED! An nginx Ingress controller that uses ConfigMap to store
       the nginx configuration.
-    digest: 1a94fe17d757c6fa5eb2f028d05a637f031befbcfcc0064a7113daf179e4744c
+    digest: 38902e342551ba986e0f82533d85e90d0897176a94557e4f6e4ed77f250a7add
     home: https://github.com/kubernetes/ingress-nginx
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
     keywords:
@@ -325,7 +325,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 6.2.6
-    created: "2021-12-14T16:02:16.368973074Z"
+    created: "2021-12-14T16:28:17.219014494Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -335,7 +335,7 @@ entries:
     description: Open source, advanced key-value store. It is often referred to as
       a data structure server since keys can contain strings, hashes, lists, sets
       and sorted sets.
-    digest: 52dec7ebc343515fc7f57937b1f6fe53b15099c6876bcf23947e1954e80794a8
+    digest: b931ed5b2c451daf78962a2c00d0e4c32d394c6c1e48cbea8efaa3ff9111ee19
     home: https://github.com/bitnami/charts/tree/master/bitnami/redis
     icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
     keywords:
@@ -354,4 +354,4 @@ entries:
     urls:
     - https://flitz-be.github.io/helm-charts/redis-15.6.3.tgz
     version: 15.6.3
-generated: "2021-12-14T16:02:16.347409355Z"
+generated: "2021-12-14T16:28:17.199821439Z"
