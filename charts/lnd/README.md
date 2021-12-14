@@ -9,7 +9,7 @@ network of bidirectional payment channels without delegating custody of funds.
 ## Introduction
 
 This chart bootstraps a single LND node. The default docker image is taken from
-[BTCPay Server](https://hub.docker.com/r/btcpayserver/lnd)'s dockerhub
+[Lightning Labs'](https://hub.docker.com/r/lightninglabs/lnd)'s dockerhub
 repository. By default it runs a testnet node using neutrino.
 
 ## Prerequisites
@@ -40,13 +40,8 @@ MY_RELEASE=my-release
 kubectl exec -it $(kubectl get pod -l "release=$MY_RELEASE" -o jsonpath='{.items[0].metadata.name}') -- lncli -n $NETWORK create
 ```
 
-Now you can enable auto unlock for your wallet. Replace `PASSWORD` with your
-password:
-
-```
-helm upgrade my-release fold/lnd --set autoUnlock=true --set autoUnlockPassword=PASSWORD
-```
-
+Make sure the password matches the one specified in the values.yaml.
+After the wallet has initialized, uncomment the `wallet-unlock-password-file` option in the lnd.conf sections of the values.
 ## Uninstalling the Chart
 
 To uninstall/delete the `my-release` deployment:
@@ -62,8 +57,8 @@ their default values.
 
 Parameter                  | Description                        | Default
 -----------------------    | ---------------------------------- | ----------------------------------------------------------
-`image.repository`         | Image source repository name       | `thesisrobot/lnd`
-`image.tag`                | `lnd` release tag.                 | `v0.13.3-beta`
+`image.repository`         | Image source repository name       | `lightninglabs/lnd`
+`image.tag`                | `lnd` release tag.                 | `v0.14.1-beta`
 `image.pullPolicy`         | Image pull policy                  | `IfNotPresent`
 `internalServices.rpcPort` | RPC Port                           | `10009`
 `externalServices.p2pPort` | P2P Port                           | `9735`
@@ -72,12 +67,4 @@ Parameter                  | Description                        | Default
 `persistence.size`         | Size of persistent volume claim    | `5Gi`
 `resources`                | CPU/Memory resource requests/limits| `{}`
 `configurationFile`        | Config file ConfigMap entry        |
-`autoUnlock`               | Automatically unlock the wallet    | `false`
-`autoUnlockPassword`       | Password used to unlock the wallet |
-`loop.enable`              | Enable loop server                 | `true`
-`loop.image.repository`    | Repository to use for loop         | `thesisrobot/loop`
-`loop.image.tag`           | Tag to use for loop                | `v0.11.1-beta`
-`pool.enable`              | Enable pool server                 | `true`
-`pool.image.repository`    | Repository to use for pool         | `thesisrobot/pool`
-`pool.image.tag`           | Tag to use for pool                | `v0.3.3-alpha`
-`pool.newNodesOnly`        | Only buy channels from new nodes   | `false`
+`autoUnlockPassword`       | Password used to unlock the wallet | `password`

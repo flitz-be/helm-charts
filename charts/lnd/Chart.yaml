@@ -1,17 +1,15 @@
 apiVersion: v1
 name: lnd
-version: 0.6.1
+version: 0.7.0
 appVersion: 0.13.3
 description: A golang implementation of a Lightning Network node
 keywords:
   - lnd
-  - cryptocurrency
-  - blockchain
   - bitcoin
 home: https://github.com/lightningnetwork/lnd
 sources:
   - https://github.com/kubernetes/charts
 maintainers:
-  - name: tdickman
-    email: tdickman@gmail.com
+  - name: kiwiidb
+    email: kwinten@flitz.be
 engine: gotpl
