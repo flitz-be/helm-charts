@@ -9,7 +9,7 @@ network of bidirectional payment channels without delegating custody of funds.
 ## Introduction
 
 This chart bootstraps a single LND node. The default docker image is taken from
-[Lightning Labs'](https://hub.docker.com/r/lightninglabs/lnd)'s dockerhub
+[BTCPayServer](https://hub.docker.com/r/btcpayserver/lnd)'s dockerhub
 repository. By default it runs a testnet node using neutrino.
 
 ## Prerequisites
@@ -57,7 +57,7 @@ their default values.
 
 Parameter                  | Description                        | Default
 -----------------------    | ---------------------------------- | ----------------------------------------------------------
-`image.repository`         | Image source repository name       | `lightninglabs/lnd`
+`image.repository`         | Image source repository name       | `btcpayserver/lnd`
 `image.tag`                | `lnd` release tag.                 | `v0.14.1-beta`
 `image.pullPolicy`         | Image pull policy                  | `IfNotPresent`
 `internalServices.rpcPort` | RPC Port                           | `10009`
