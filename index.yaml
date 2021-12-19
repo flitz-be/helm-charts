@@ -3,9 +3,9 @@ entries:
   bitcoind:
   - apiVersion: v1
     appVersion: 0.17.1
-    created: "2021-12-19T11:46:49.456839074Z"
+    created: "2021-12-19T12:21:14.782307354Z"
     description: Bitcoin is an innovative payment network and a new kind of money.
-    digest: 1f879f88d0c07bc2ce24acaea246da02dc5aa51299947607c47322736ef21ed5
+    digest: 335e9062ae0d1c8d88162a52b91bb4f4e4cdb3bda3f0162511befa806fe3f66a
     home: https://bitcoin.org/
     icon: https://bitcoin.org/img/icons/logotop.png
     keywords:
@@ -88,6 +88,26 @@ entries:
   c-lightning:
   - apiVersion: v1
     appVersion: 0.10.2
+    created: "2021-12-19T12:21:14.783008059Z"
+    description: A C implementation of a Lightning Network node
+    digest: 41018dbb3a01fa5e830db49bbb91793f6fab398ca2be4df4a7a567856ccfb57c
+    home: https://github.com/elementsproject/c-lightning
+    keywords:
+    - c-lightning
+    - cryptocurrency
+    - blockchain
+    - bitcoin
+    maintainers:
+    - email: kwinten@flitz.be
+      name: kiwiidb
+    name: c-lightning
+    sources:
+    - https://github.com/kubernetes/charts
+    urls:
+    - https://flitz-be.github.io/helm-charts/c-lightning-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v1
+    appVersion: 0.10.2
     created: "2021-12-19T11:46:49.457533588Z"
     description: A C implementation of a Lightning Network node
     digest: d1f3593e9c28c8f0a198e508d706910047b64a98dac222a6d4fa3a9f163b6f93
@@ -151,9 +171,9 @@ entries:
       artifacthub.io/prerelease: "false"
     apiVersion: v1
     appVersion: v1.6.1
-    created: "2021-12-19T11:46:49.468460606Z"
+    created: "2021-12-19T12:21:14.791928719Z"
     description: A Helm chart for cert-manager
-    digest: 0e7751e1c7df7e925e89965f255e1a2bfdee474b548c271f8f8f9543d091c130
+    digest: 8cd51ffb89f82e88c5d9e536e70b1e8df99c65bd4c9a74a6cadef0e80ad6c2e4
     home: https://github.com/jetstack/cert-manager
     icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.png
     keywords:
@@ -173,9 +193,9 @@ entries:
   lnd:
   - apiVersion: v1
     appVersion: 0.13.3
-    created: "2021-12-19T11:46:49.469217321Z"
+    created: "2021-12-19T12:21:14.793025827Z"
     description: A golang implementation of a Lightning Network node
-    digest: ffe70d5af1506cc55df54c1ce39468adda7b9d56e292ce36ad3b61203ab601c1
+    digest: 5600c0b92bfa324d1c07ba119d9110515fb3cced851198bc20ff0947f50cc2ea
     home: https://github.com/lightningnetwork/lnd
     keywords:
     - lnd
@@ -330,9 +350,9 @@ entries:
   lndhub:
   - apiVersion: v2
     appVersion: v1.4.1
-    created: "2021-12-19T11:46:49.470574548Z"
+    created: "2021-12-19T12:21:14.793944333Z"
     description: A Helm chart for Kubernetes
-    digest: d840231742ad26ac95be107324fed46b5611b241919fd6cffb1fd4a715572bb1
+    digest: 12d6f1f7936cbf8a7e961d9314329f07d82a4bd0bbe0828a3e6d8d048fead1ce
     name: lndhub
     type: application
     urls:
@@ -341,11 +361,11 @@ entries:
   nginx-ingress:
   - apiVersion: v1
     appVersion: v0.34.1
-    created: "2021-12-19T11:46:49.474275122Z"
+    created: "2021-12-19T12:21:14.799995374Z"
     deprecated: true
     description: DEPRECATED! An nginx Ingress controller that uses ConfigMap to store
       the nginx configuration.
-    digest: d7553fb2bbecc5eb8a66f01bb136e35d7cffd2c5fc69c9400ce4a2934f3031a7
+    digest: 0134fa868c4785b220f19ccf3d1a3b69cfe8f2258bc4ba4e4ef2a3cc4869cd0d
     home: https://github.com/kubernetes/ingress-nginx
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
     keywords:
@@ -363,7 +383,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 6.2.6
-    created: "2021-12-19T11:46:49.481698871Z"
+    created: "2021-12-19T12:21:14.806023015Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -373,7 +393,7 @@ entries:
     description: Open source, advanced key-value store. It is often referred to as
       a data structure server since keys can contain strings, hashes, lists, sets
       and sorted sets.
-    digest: 5ee7f2a4077ad2f761c4a22c3ab35c0852cbb60fda9c7ccbe6af5a7d5296b9f9
+    digest: 825a95bf09bf0e4652419e6ccf570a6510bb6e266027cedf5c2b3ce0cc9a8f71
     home: https://github.com/bitnami/charts/tree/master/bitnami/redis
     icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
     keywords:
@@ -392,4 +412,4 @@ entries:
     urls:
     - https://flitz-be.github.io/helm-charts/redis-15.6.3.tgz
     version: 15.6.3
-generated: "2021-12-19T11:46:49.456047558Z"
+generated: "2021-12-19T12:21:14.780895445Z"
