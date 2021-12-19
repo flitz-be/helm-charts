@@ -27,7 +27,7 @@ spec:
           args:
             {{- toYaml .Values.args | nindent 12 }}
           resources:
-  {{ toYaml .Values.resources | indent 10 }}
+{{ toYaml .Values.resources | indent 12 }}
           ports:
             - name: rpc
               containerPort: {{ .Values.internalServices.rpcPort }}
