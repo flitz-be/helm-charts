@@ -9,9 +9,9 @@ keywords:
 - blockchain
 - bitcoin
 maintainers:
-- email: kwinten.debacker@hotmail.com
+- email: kwinten@flitz.be
   name: kiwiidb
 name: c-lightning
 sources:
 - https://github.com/kubernetes/charts
-version: 0.2.0
+version: 0.3.0

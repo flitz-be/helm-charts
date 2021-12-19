@@ -15,6 +15,22 @@ internalServices:
 externalServices:
   p2pPort: 9735
 
+  # Ingress for Sparko REST API
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+  hosts:
+    - host: cln.dev.flitz.be
+      paths:
+        - path: /
+  tls:
+    - hosts:
+        - cln.dev.flitz.be
+      secretName: cln-tls-secret
+
 args:
   - "--disable-plugin=bcli" 
   - "--plugin=/opt/lightningd/plugins/trustedcoin_linux_amd64"
