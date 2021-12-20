@@ -14,6 +14,7 @@ internalServices:
 # Ports that are visible outside your cluster
 externalServices:
   p2pPort: 9735
+  type: LoadBalancer
 
   # Ingress for Sparko REST API
 ingress:
