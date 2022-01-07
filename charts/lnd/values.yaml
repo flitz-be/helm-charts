@@ -77,7 +77,7 @@ configurationFile:
     tlsextraip=0.0.0.0
     protocol.wumbo-channels=1
 #    wallet-unlock-password-file=/passwords/wallet_password
-autoUnlock: true
+autoUnlock: false
 autoUnlockPassword: password
 
 lit:

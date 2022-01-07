@@ -56,9 +56,11 @@ spec:
               mountPath: /root/.lnd/lnd.conf
               subPath: lnd.conf
             {{- end }}
+            {{- if .Values.autoUnlock }}
             - name: secrets
               mountPath: /passwords/wallet_password
               subPath: wallet_password
+            {{- end }}
           lifecycle:
             preStop:
               exec:
