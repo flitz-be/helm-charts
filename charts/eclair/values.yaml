@@ -1,0 +1,65 @@
+# Default values for bitcoind.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: acinq/eclair
+  tag: release-0.6.1
+  pullPolicy: IfNotPresent
+
+# Ports that are exposed to other pods in your cluster
+internalServices:
+  rpcPort: 8080
+
+# Ports that are visible outside your cluster
+externalServices:
+  p2pPort: 9735
+  type: LoadBalancer
+
+  # Ingress for Eclair REST API
+ingress:
+  enabled: false
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+  hosts:
+    - host: eclair.dev.flitz.be
+      paths:
+        - path: /
+  tls:
+    - hosts:
+        - eclair.dev.flitz.be
+      secretName: eclair-tls-secret
+
+configurationFile:
+  eclair.conf: |
+    eclair.node-alias="eclair.dev.flitz.be"
+    eclair.node-color=49daaa
+    eclair.api.enabled=true
+    eclair.api.password=foobar
+    eclair.api.port=8080
+    eclair.bitcoind.host=bitcoind-host
+    eclair.bitcoind.rpcuser=rpcuser
+    eclair.bitcoind.rpcpassword=rpcpassword
+
+persistence:
+  enabled: true
+  ## database data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+  accessMode: ReadWriteOnce
+  size: 5Gi
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources: {}
+#  requests:
+#    memory: 512Mi
+#    cpu: 300m
