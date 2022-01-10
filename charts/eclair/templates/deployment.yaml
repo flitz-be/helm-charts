@@ -16,14 +16,28 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
         app: {{ template "eclair.name" . }}
         release: {{ .Release.Name }}
     spec:
+      initContainers:
+        - name: copy-config
+          image: busybox
+          command: ['sh', '-c', 'cp /configmap/eclair.conf /data/eclair.conf']
+          volumeMounts:
+            - name: config
+              mountPath: /configmap
+            - name: data
+              mountPath: /data
       containers:
         - name: {{ template "eclair.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          env:
+            - name: "JAVA_OPTS"
+              value: "-Declair.printToConsole"
           args:
             {{- toYaml .Values.args | nindent 12 }}
           resources:
@@ -36,8 +50,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
-            - name: config
-              mountPath: /root/.eclair
           lifecycle:
             preStop:
               exec:

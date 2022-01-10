@@ -17,6 +17,7 @@ externalServices:
   type: LoadBalancer
 
   # Ingress for Eclair REST API
+  # only for develop purposes
 ingress:
   enabled: false
   annotations:
@@ -34,14 +35,17 @@ ingress:
 
 configurationFile:
   eclair.conf: |
-    eclair.node-alias="eclair.dev.flitz.be"
+    eclair.node-alias="CHANGEME"
     eclair.node-color=49daaa
     eclair.api.enabled=true
     eclair.api.password=foobar
     eclair.api.port=8080
-    eclair.bitcoind.host=bitcoind-host
+    eclair.api.binding-ip=0.0.0.0
+    eclair.bitcoind.host=CHANGEME
     eclair.bitcoind.rpcuser=rpcuser
     eclair.bitcoind.rpcpassword=rpcpassword
+    eclair.bitcoind.zmqblock="tcp://CHANGEME:28332"
+    eclair.bitcoind.zmqtx="tcp://CHANGEME:28333"
 
 persistence:
   enabled: true
