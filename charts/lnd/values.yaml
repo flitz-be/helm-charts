@@ -80,8 +80,14 @@ configurationFile:
 autoUnlock: false
 autoUnlockPassword: password
 
-lit:
+rtl:
   enable: false
+  port: 3000
+  env:
+    LN_IMPLEMENTATION: LND
+    LN_SERVER_URL: "https://your_lnd:8080"
+    MACAROON_PATH: "/root/.lnd/data/chain/bitcoin/regtest"
+    CONFIG_PATH: "/root/.lnd/lnd.conf"
   image:
-    repository: lightninglabs/lightning-terminal
-    tag: v0.6.0-alpha
+    repository: shahanafarooqui/rtl
+    tag: 0.12.0
