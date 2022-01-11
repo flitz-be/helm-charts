@@ -13,4 +13,4 @@ maintainers:
 name: eclair
 sources:
 - https://github.com/kubernetes/charts
-version: 0.2.0
+version: 0.2.1

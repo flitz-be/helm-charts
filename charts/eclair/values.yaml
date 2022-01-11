@@ -36,6 +36,7 @@ ingress:
 configurationFile:
   eclair.conf: |
     eclair.node-alias="CHANGEME"
+    eclair.chain=regtest
     eclair.node-color=49daaa
     eclair.api.enabled=true
     eclair.api.password=foobar
