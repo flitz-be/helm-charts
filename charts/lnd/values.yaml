@@ -95,7 +95,7 @@ rtl:
     repository: shahanafarooqui/rtl
     tag: 0.11.2
 lndmon:
-  enable: true
+  enable: false
   port: 9092
   listenaddr: 0.0.0.0:9092
   macaroonDir: /root/.lnd/data/chain/bitcoin/regtest
