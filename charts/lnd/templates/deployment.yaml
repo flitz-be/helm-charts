@@ -95,10 +95,9 @@ spec:
             postStart:
               exec:
                 command:
-                  - sh
-                  - -c
-                  - sleep
-                  - "{{ .Values.lndmon.sleep }}"
+                  - 'sh'
+                  - '-c'
+                  - 'sleep {{ .Values.lndmon.sleep }}'
           args:
             - "--lnd.network={{ .Values.lndmon.lndNetwork }}" 
             - "--lnd.host={{ .Values.lndmon.lndHost }}" 
