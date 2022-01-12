@@ -90,6 +90,12 @@ spec:
         {{- if .Values.lndmon.enable }}
         - name: lndmon
           image: {{ .Values.lndmon.image.repository }}:{{ .Values.lndmon.image.tag }}
+          # go to sleep first to give lnd a chance to start
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sleep {{ .Values.lndmon.sleep }}
           args:
             - "--lnd.network={{ .Values.lndmon.lndNetwork }}" 
             - "--lnd.host={{ .Values.lndmon.lndHost }}" 
