@@ -93,6 +93,8 @@ spec:
           args:
             - "--lnd.network={{ .Values.lndmon.lndNetwork }}" 
             - "--lnd.host={{ .Values.lndmon.lndHost }}" 
+            - "--lnd.macaroondir={{ .Values.lndmon.macaroonDir }}" 
+            - "--lnd.tlspath={{ .Values.lndmon.tlsPath }}" 
             - "--prometheus.listenaddr={{ .Values.lndmon.listenaddr }}" 
           ports:
             - name: lndmon
