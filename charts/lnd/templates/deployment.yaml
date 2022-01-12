@@ -96,7 +96,7 @@ spec:
               exec:
                 command:
                   - sh
-                  - c
+                  - -c
                   - sleep {{ .Values.lndmon.sleep }}
           args:
             - "--lnd.network={{ .Values.lndmon.lndNetwork }}" 
