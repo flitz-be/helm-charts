@@ -15,6 +15,14 @@ spec:
     - name: rest
       port: {{ .Values.internalServices.restPort }}
       targetPort: rest
+    - name: prometheus
+      port: {{ .Values.internalServices.prometheusPort }}
+      targetPort: prometheus
+    {{- if .Values.lndmon.enable }}
+    - name: lndmon-prometheus
+      port: {{ .Values.lndmon.port }}
+      targetPort: lndmon
+    {{- end }}
   selector:
     app: {{ template "lnd.name" . }}
     release: {{ .Release.Name }}

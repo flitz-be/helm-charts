@@ -11,6 +11,7 @@ image:
 internalServices:
   rpcPort: 10009
   restPort: 8080
+  prometheusPort: 8989
 
 # Ingress for REST API
 ingress:
@@ -76,6 +77,8 @@ configurationFile:
     tlsextradomain=lnd.dev.flitz.be
     tlsextraip=0.0.0.0
     protocol.wumbo-channels=1
+    prometheus.enable=false
+    prometheus.listen=0.0.0.0:8989
 #    wallet-unlock-password-file=/passwords/wallet_password
 autoUnlock: false
 autoUnlockPassword: password
@@ -91,3 +94,12 @@ rtl:
   image:
     repository: shahanafarooqui/rtl
     tag: 0.11.2
+lndmon:
+  enable: false
+  port: 9092
+  listenaddr: 0.0.0.0:9092
+  lndNetwork: regtest
+  lndHost: your-lnd-host:10009
+  image:
+    repository: lnzap/lndmon
+    tag: 0.1.0-zap.2

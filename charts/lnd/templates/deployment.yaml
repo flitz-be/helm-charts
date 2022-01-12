@@ -46,6 +46,8 @@ spec:
               containerPort: {{ .Values.internalServices.rpcPort }}
             - name: rest
               containerPort: {{ .Values.internalServices.restPort }}
+            - name: prometheus
+              containerPort: {{ .Values.internalServices.prometheusPort }}
             - name: p2p
               containerPort: {{ .Values.externalServices.p2pPort }}
           volumeMounts:
@@ -78,6 +80,23 @@ spec:
             - name: {{ $key | quote }}
               value: {{ $value | quote }}
             {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /root/
+          resources:
+            requests:
+              cpu: "10m"
+        {{- end }}
+        {{- if .Values.lndmon.enable }}
+        - name: lndmon
+          image: {{ .Values.lndmon.image.repository }}:{{ .Values.lndmon.image.tag }}
+          args:
+            - "--lnd.network={{ .Values.lndmon.lndNetwork }}" 
+            - "--lnd.host={{ .Values.lndmon.lndHost }}" 
+            - "--prometheus.listenaddr={{ .Values.lndmon.listenaddr }}" 
+          ports:
+            - name: lndmon
+              containerPort: {{ .Values.lndmon.port }}
           volumeMounts:
             - name: data
               mountPath: /root/
