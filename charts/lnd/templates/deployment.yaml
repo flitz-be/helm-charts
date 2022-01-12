@@ -91,8 +91,10 @@ spec:
         - name: lndmon
           image: {{ .Values.lndmon.image.repository }}:{{ .Values.lndmon.image.tag }}
           # go to sleep first to give lnd a chance to start
-          command: ['/bin/sh', '-c', 'sleep {{ .Values.lndmon.sleep }} && /bin/lndmon']
+          command: ['/bin/sh']
           args:
+            - "-c"
+            - "sleep {{ .Values.lndmon.sleep }} && /bin/lndmon"
             - "--lnd.network={{ .Values.lndmon.lndNetwork }}" 
             - "--lnd.host={{ .Values.lndmon.lndHost }}" 
             - "--lnd.macaroondir={{ .Values.lndmon.macaroonDir }}" 
