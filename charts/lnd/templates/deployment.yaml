@@ -98,7 +98,7 @@ spec:
                   - sh
                   - -c
                   - sleep
-                  - {{ .Values.lndmon.sleep }}
+                  - "{{ .Values.lndmon.sleep }}"
           args:
             - "--lnd.network={{ .Values.lndmon.lndNetwork }}" 
             - "--lnd.host={{ .Values.lndmon.lndHost }}" 
