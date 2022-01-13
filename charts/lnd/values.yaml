@@ -93,7 +93,7 @@ rtl:
     CONFIG_PATH: "/root/.lnd/lnd.conf"
   image:
     repository: shahanafarooqui/rtl
-    tag: 0.11.2
+    tag: 0.12.0
 lndmon:
   enable: false
   port: 9092
