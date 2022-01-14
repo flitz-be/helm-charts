@@ -108,6 +108,10 @@ spec:
         {{- if .Values.lndbackup.enable }}
         - name: lndbackup
           image: "{{ .Values.lndbackup.image.repository }}:{{ .Values.lndbackup.image.tag }}"
+          command: ['/bin/sh']
+          args:
+            - "-c"
+            - "sleep {{ .Values.lndbackup.sleep }} && /bin/lndbackup"
           env:
             {{- range $key, $value := .Values.lndbackup.env }}
             - name: {{ $key | quote }}

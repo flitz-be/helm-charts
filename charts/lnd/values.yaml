@@ -108,6 +108,7 @@ lndmon:
     tag: 0.1.0-zap.2
 lndbackup:
   enable: false
+  sleep: 30
   env:
     MACAROON_PATH: /root/.lnd/data/chain/bitcoin/regtest
     TLS_CERT_PATH: /root/.lnd/tls.cert
