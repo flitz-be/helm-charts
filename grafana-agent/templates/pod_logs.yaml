@@ -1,0 +1,14 @@
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: PodLogs
+metadata:
+  labels:
+    instance: primary
+  name: kubernetes-pods
+  namespace: default
+spec:
+  pipelineStages:
+    - docker: {}
+  namespaceSelector:
+    matchNames: {{ toYaml .Values.logs.namespaces | nindent 6}}
+  selector:
+    matchLabels: {}

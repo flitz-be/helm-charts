@@ -8,6 +8,7 @@ This respoitory contains [Helm](https://helm.sh) charts for the following projec
 * [Eclair](charts/eclair)
 * [Bitcoind](charts/bitcoind)
 * [Nginx](charts/nginx-ingress)
+* [Grafana-agent](charts/grafana-agent)
 * [Cert-manager](charts/cert-manager)
 * [Redis](charts/redis)
 

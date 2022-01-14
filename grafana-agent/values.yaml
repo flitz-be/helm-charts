@@ -1,0 +1,24 @@
+cluster: example-cluster
+logs:
+  remoteWriteUrl: https://logs-prod-eu-west-0.grafana.net/api/prom/push
+  namespaces:
+    - YOUR_NS_1
+    - YOUR_NS_2
+metrics:
+  remoteWriteUrl: https://prometheus-prod-eu-west-0.grafana.net/api/prom/push
+  extraScrapeConfigs:
+    jobs.yaml: |
+      - job_name: "lndmon"
+        scrape_interval: "20s"
+        static_configs:
+        - targets: ['YOUR_LNDMON.YOUR_NAMESPACE.svc.cluster.local:9092']
+        relabel_configs:
+          - action: hashmod
+            modulus: $(SHARDS)
+            source_labels:
+            - __address__
+            target_label: __tmp_hash
+          - action: keep
+            regex: $(SHARD)
+            source_labels:
+            - __tmp_hash
