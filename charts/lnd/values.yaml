@@ -106,3 +106,21 @@ lndmon:
   image:
     repository: lnzap/lndmon
     tag: 0.1.0-zap.2
+lndbackup:
+  enable: false
+  env:
+    MACAROON_PATH: /root/.lnd/data/chain/bitcoin/regtest
+    TLS_CERT_PATH: /root/.lnd/tls.cert
+    NETWORK: regtest
+    BUCKET_URL: s3://bucket-url/sub/folder
+    S3_REGION: eu-central-1
+  secrets:
+    S3_KEY:
+      secretName: s3-credentials
+      secretKey: key
+    S3_SECRET:
+      secretName: s3-credentials
+      secretKey: secret
+  image:
+    repository: ghcr.io/flitz-be/lndbackup
+    tag: 1.0.0
