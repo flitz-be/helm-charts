@@ -24,10 +24,18 @@ ingress:
     - host: lnd.dev.flitz.be
       paths:
         - path: /
+          port: 8080
+    - host: rpc.lnd.dev.flitz.be
+      paths:
+        - path: /
+          port: 10009
   tls:
     - hosts:
         - lnd.dev.flitz.be
       secretName: lnd-tls-secret
+    - hosts:
+        - rpc.lnd.dev.flitz.be
+      secretName: lnd-rpc-tls-secret
 
 # Ports that are visible outside your cluster
 externalServices:

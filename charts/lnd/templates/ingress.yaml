@@ -1,6 +1,5 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "lnd.fullname" . -}}
-{{- $svcPort := .Values.internalServices.restPort -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
@@ -33,7 +32,7 @@ spec:
           - path: {{ .path }}
             backend:
               serviceName: {{ $fullName }}-internal
-              servicePort: {{ $svcPort }}
+              servicePort: {{ .port }}
           {{- end }}
     {{- end }}
   {{- end }}
