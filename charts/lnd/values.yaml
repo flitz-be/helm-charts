@@ -39,7 +39,7 @@ ingress:
       kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: letsencrypt-prod
       nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+      nginx.ingress.kubernetes.io/backend-protocol: "GRPCS"
     hosts:
       - host: rpc.lnd.dev.flitz.be
         paths:
