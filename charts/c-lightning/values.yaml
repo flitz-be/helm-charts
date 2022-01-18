@@ -34,6 +34,7 @@ ingress:
 
 args:
   - "--disable-plugin=bcli" 
+  - "--addr=0.0.0.0:9735"
   - "--plugin=/opt/lightningd/plugins/trustedcoin_linux_amd64"
   - "--plugin=/opt/lightningd/plugins/sparko_linux_amd64"
   - "--plugin=/opt/lightningd/plugins/rebalance/rebalance.py"
