@@ -1,3 +1,4 @@
+![Logo](logo.png)
 # Flitz Technologies [Helm](https://helm.sh) Charts
 
 This respoitory contains [Helm](https://helm.sh) charts for the following projects:
