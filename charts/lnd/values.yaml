@@ -110,7 +110,7 @@ lit:
   password: password
   network: regtest
   macaroonPath: /root/.lnd/data/chain/bitcoin/regtest/admin.macaroon
-  tlsPath: /root/.lnd/tls.cert
+  tlsCertPath: /root/.lnd/tls.cert
   sleep: 30
   image:
     repository: lightninglabs/lightning-terminal
