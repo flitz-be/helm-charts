@@ -109,6 +109,9 @@ lit:
   port: 8443
   password: password
   network: regtest
+  macaroonPath: /root/.lnd/data/chain/bitcoin/regtest/admin.macaroon
+  tlsPath: /root/.lnd/tls.cert
+  sleep: 30
   image:
     repository: lightninglabs/lightning-terminal
     tag: v0.6.2-alpha

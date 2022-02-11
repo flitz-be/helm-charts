@@ -90,11 +90,11 @@ spec:
         {{- if .Values.lit.enable }}
         - name: lit
           image: {{ .Values.lit.image.repository }}:{{ .Values.lit.image.tag }}
-          command: ['sleep']
+          # go to sleep first to give lnd a chance to start
+          command: ['/bin/sh']
           args:
-            - "3600"
-            # - "--uipassword={{ .Values.lit.password }}"
-            # - "--network={{ .Values.lit.network }}"
+            - "-c"
+            - "sleep {{ .Values.lit.sleep }} && litd --network={{ .Values.lit.network }} --lnd.macaroonpath={{ .Values.lit.macaroonPath }} --lnd.tlscertpath={{ .Values.lit.tlsCertPath }}"
           ports:
             - name: http
               containerPort: {{ .Values.lit.port }}
