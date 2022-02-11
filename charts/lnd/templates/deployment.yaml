@@ -94,7 +94,7 @@ spec:
           command: ['/bin/sh']
           args:
             - "-c"
-            - "sleep {{ .Values.lit.sleep }} && litd --uipassword={{ .Values.lit.password }} --network={{ .Values.lit.network }} --lndmacaroonpath={{ .Values.lit.macaroonPath }} --lndtlscertpath={{ .Values.lit.tlsCertPath }}"
+            - "sleep {{ .Values.lit.sleep }} && litd --uipassword={{ .Values.lit.password }} --network={{ .Values.lit.network }} --remote.lnd.macaroonpath={{ .Values.lit.macaroonPath }} --remote.lnd.tlscertpath={{ .Values.lit.tlsCertPath }}"
           ports:
             - name: http
               containerPort: {{ .Values.lit.port }}
