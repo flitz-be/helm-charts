@@ -105,7 +105,7 @@ autoUnlock: false
 autoUnlockPassword: password
 
 lit:
-  enable: true
+  enable: false
   port: 8443
   password: password
   network: regtest
