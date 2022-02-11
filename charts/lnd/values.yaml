@@ -108,6 +108,7 @@ lit:
   enable: true
   port: 8443
   password: password
+  network: regtest
   image:
     repository: lightninglabs/lightning-terminal
     tag: v0.6.2-alpha

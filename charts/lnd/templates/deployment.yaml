@@ -93,6 +93,7 @@ spec:
           command: ['litd']
           args:
             - "--uipassword={{ .Values.lit.password }}"
+            - "--network={{ .Values.lit.network }}"
           ports:
             - name: http
               containerPort: {{ .Values.lit.port }}
