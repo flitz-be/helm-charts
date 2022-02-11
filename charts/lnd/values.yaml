@@ -113,8 +113,8 @@ lit:
   tlsCertPath: /root/.lnd/tls.cert
   sleep: 30
   image:
-    repository: lightninglabs/lightning-terminal
-    tag: v0.6.2-alpha
+    repository: ghcr.io/flitz-be/lightning-terminal
+    tag: master-cd072d9
 rtl:
   enable: false
   port: 3000
