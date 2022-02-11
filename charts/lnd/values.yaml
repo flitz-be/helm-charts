@@ -104,6 +104,13 @@ configurationFile:
 autoUnlock: false
 autoUnlockPassword: password
 
+lit:
+  enable: true
+  port: 8443
+  password: password
+  image:
+    repository: lightninglabs/lightning-terminal
+    tag: v0.6.2-alpha
 rtl:
   enable: false
   port: 3000

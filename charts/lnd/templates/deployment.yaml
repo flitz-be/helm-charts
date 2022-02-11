@@ -87,6 +87,22 @@ spec:
             requests:
               cpu: "10m"
         {{- end }}
+        {{- if .Values.lit.enable }}
+        - name: lit
+          image: {{ .Values.lit.image.repository }}:{{ .Values.lit.image.tag }}
+          command: ['litd']
+          args:
+            - "--uipassword={{ .Values.lit.password }}"
+          ports:
+            - name: http
+              containerPort: {{ .Values.lit.port }}
+          volumeMounts:
+            - name: data
+              mountPath: /root/
+          resources:
+            requests:
+              cpu: "10m"
+        {{- end }}
         {{- if .Values.lndmon.enable }}
         - name: lndmon
           image: {{ .Values.lndmon.image.repository }}:{{ .Values.lndmon.image.tag }}
