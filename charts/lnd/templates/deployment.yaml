@@ -90,9 +90,9 @@ spec:
         {{- if .Values.lit.enable }}
         - name: lit
           image: {{ .Values.lit.image.repository }}:{{ .Values.lit.image.tag }}
-          command: ['sleep 3600']
+          command: ['sleep']
           args:
-            # - "-c"
+            - "3600"
             # - "--uipassword={{ .Values.lit.password }}"
             # - "--network={{ .Values.lit.network }}"
           ports:
