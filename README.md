@@ -12,6 +12,9 @@ This respoitory contains [Helm](https://helm.sh) charts for the following projec
 * [Grafana-agent CRD's](charts/grafana-agent-resources)
 * [Cert-manager](charts/cert-manager)
 * [Redis](charts/redis)
+* [Postgres](charts/postgresql)
+* [Clickhouse](charts/clickhouse)
+* [Plausible](charts/plausible-analytics)
 
 
 ```
