@@ -100,10 +100,14 @@ spec:
             - name: BASE_URL
               value: {{ .Values.baseURL | toString | quote }}
             {{- end }}
-            {{- if .Values.geolocation.enabled }}
-            - name: GEOLITE2_COUNTRY_DB
-              value: "/geoip/GeoLite2-Country.mmdb"
-            {{ end }}
+            {{- if .Values.disableAuth }}
+            - name: DISABLE_AUTH
+              value: {{ .Values.disableAuth | toString | quote }}
+            {{- end }}
+            {{- if .Values.disableRegistration }}
+            - name: DISABLE_REGISTRATION
+              value: {{ .Values.disableRegistration | toString | quote }}
+            {{- end }}
           ports:
             - name: http
               containerPort: 8000
@@ -125,35 +129,6 @@ spec:
               port: http
           resources:
           {{- toYaml .Values.resources | nindent 12 }}
-
-        {{- if .Values.geolocation.enabled }}
-        - name: geoipupdate
-          image: maxmindinc/geoipupdate
-          env:
-            - name: GEOIPUPDATE_FREQUENCY
-              value: "168"
-            - name: GEOIPUPDATE_EDITION_IDS
-              value: GeoLite2-Country
-            {{- if .Values.geolocation.account_id }}
-            - name: GEOIPUPDATE_ACCOUNT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "plausible-analytics.fullname" . }}
-                  key: GEOIPUPDATE_ACCOUNT_ID
-            {{ end }}
-            {{- if .Values.geolocation.license_key }}
-            - name: GEOIPUPDATE_LICENSE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "plausible-analytics.fullname" . }}
-                  key: GEOIPUPDATE_LICENSE_KEY
-            {{ end }}
-          volumeMounts:
-            - name: geoip
-              mountPath: /usr/share/GeoIP
-        {{ end }}
-
-
       initContainers:
         - name: plausible-init
           securityContext:
@@ -218,7 +193,7 @@ spec:
             - name: DISABLE_REGISTRATION
               value: {{ .Values.disableRegistration | toString | quote }}
             {{- end }}
-            {{- if .Values.disableAuth }}
+            {{- if .Values.baseURL }}
             - name: BASE_URL
               value: {{ .Values.baseURL | toString | quote }}
             {{- end }}
@@ -358,7 +333,3 @@ spec:
       volumes:
         - name: app-tmp
           emptyDir: {}
-        {{- if .Values.geolocation.enabled }}
-        - name: geoip
-          emptyDir: {}
-        {{- end }}
