@@ -24,6 +24,15 @@ spec:
         release: {{ .Release.Name }}
     spec:
       terminationGracePeriodSeconds: 60
+      initContainers:
+        - name: copy-config
+         image: busybox
+         command: ['sh', '-c', 'cp /config/* /RTL/']
+         volumeMounts:
+           - name: config
+             mountPath: /config
+           - name: rtl
+             mountPath: /RTL
       containers:
         - name: rtl
           image: {{ .Values.rtl.image.repository }}:{{ .Values.rtl.image.tag }}
@@ -31,7 +40,7 @@ spec:
             - name: http
               containerPort: {{ .Values.rtl.port }}
           volumeMounts:
-            - name: config
+            - name: rtl
               mountPath: /RTL/RTL-Config.json
               subPath: RTL-Config.json
             - name: nodes
@@ -41,6 +50,8 @@ spec:
               cpu: "10m"
         {{- end }}
       volumes:
+        - name: rtl
+          emptyDir: {}
         - name: config
           configMap:
             name: {{ template "lnd.fullname" . }}-rtl
