@@ -35,10 +35,12 @@ spec:
               mountPath: /RTL
         - name: copy-macaroons
           image: busybox
-          command: ['sh', '-c', 'for m in /nodes/*.macaroon; do mkdir "${m%.*}" && mv "$m" "${m%.*}/admin.macaroon"; done']
+          command: ['sh', '-c', 'for m in /nodes/*.macaroon; do mkdir "/credentials/${m%.*}" && mv "$m" "${m%.*}/admin.macaroon"; done']
           volumeMounts:
             - name: nodes
               mountPath: /nodes
+            - name: credentials
+              mountPath: /credentials
       containers:
         - name: rtl
           image: {{ .Values.rtl.image.repository }}:{{ .Values.rtl.image.tag }}
@@ -49,14 +51,16 @@ spec:
             - name: rtl
               mountPath: /RTL/RTL-Config.json
               subPath: RTL-Config.json
-            - name: nodes
-              mountPath: /nodes
+            - name: credentials
+              mountPath: /credentials
           resources:
             requests:
               cpu: "10m"
         {{- end }}
       volumes:
         - name: rtl
+          emptyDir: {}
+        - name: credentials
           emptyDir: {}
         - name: config
           configMap:
