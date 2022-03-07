@@ -26,13 +26,13 @@ spec:
       terminationGracePeriodSeconds: 60
       initContainers:
         - name: copy-config
-         image: busybox
-         command: ['sh', '-c', 'cp /config/* /RTL/']
-         volumeMounts:
-           - name: config
-             mountPath: /config
-           - name: rtl
-             mountPath: /RTL
+          image: busybox
+          command: ['sh', '-c', 'cp /config/* /RTL/']
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: rtl
+              mountPath: /RTL
       containers:
         - name: rtl
           image: {{ .Values.rtl.image.repository }}:{{ .Values.rtl.image.tag }}
