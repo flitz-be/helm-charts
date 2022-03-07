@@ -33,6 +33,12 @@ spec:
               mountPath: /config
             - name: rtl
               mountPath: /RTL
+        - name: copy-macaroons
+          image: busybox
+          command: ['sh', '-c', 'for m in /nodes/*.macaroon; do mkdir "${m%.*}" && mv "$m" "${m%.*}/admin.macaroon"; done']
+          volumeMounts:
+            - name: nodes
+              mountPath: /nodes
       containers:
         - name: rtl
           image: {{ .Values.rtl.image.repository }}:{{ .Values.rtl.image.tag }}
