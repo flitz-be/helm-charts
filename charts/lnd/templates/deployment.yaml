@@ -69,24 +69,6 @@ spec:
                 # Make sure we safely quit lnd so we don't corrupt
                 # anything
                 command: ["/bin/lncli", "-n", "{{ .Values.network }}", "stop"]
-        {{- if .Values.rtl.enable }}
-        - name: rtl
-          image: {{ .Values.rtl.image.repository }}:{{ .Values.rtl.image.tag }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.rtl.port }}
-          env:
-            {{- range $key, $value := .Values.rtl.env }}
-            - name: {{ $key | quote }}
-              value: {{ $value | quote }}
-            {{- end }}
-          volumeMounts:
-            - name: data
-              mountPath: /root/
-          resources:
-            requests:
-              cpu: "10m"
-        {{- end }}
         {{- if .Values.lit.enable }}
         - name: lit
           image: {{ .Values.lit.image.repository }}:{{ .Values.lit.image.tag }}

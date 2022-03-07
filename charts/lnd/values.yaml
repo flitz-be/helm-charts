@@ -49,6 +49,21 @@ ingress:
       - hosts:
           - rpc.lnd.dev.flitz.be
         secretName: lnd-rpc-tls-secret
+  rtl:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+    hosts:
+      - host: rtl.lnd.dev.flitz.be
+        paths:
+          - path: /
+            port: 3000
+    tls:
+      - hosts:
+          - rtl.lnd.dev.flitz.be
+        secretName: lnd-rtl-tls-secret
 
 # Ports that are visible outside your cluster
 externalServices:
@@ -116,16 +131,34 @@ lit:
     repository: ghcr.io/flitz-be/lightning-terminal
     tag: master-cd072d9
 rtl:
-  enable: false
+  enable: true
   port: 3000
-  env:
-    LN_IMPLEMENTATION: LND
-    LN_SERVER_URL: "https://your_lnd:8080"
-    MACAROON_PATH: "/root/.lnd/data/chain/bitcoin/regtest"
-    CONFIG_PATH: "/root/.lnd/lnd.conf"
+  config:
+    RTL-Config.json: |-
+      {
+        "multiPass": "password",
+        "port": "3000",
+        "defaultNodeIndex": 1,
+        "SSO": {
+          "rtlSSO": 0,
+        },
+        "nodes": [
+          {
+            "index": 1,
+            "lnNode": "Node 1",
+            "lnImplementation": "LND",
+            "Authentication": {
+              "macaroonPath": "/root/nodes/macaroon-1.macaroon",
+              "lnServerUrl": "https://lnd-1:8080",
+            },
+            "Settings": {}
+          }
+        ]
+      }
+  nodeMacaroonSecret: rtl-nodes
   image:
     repository: shahanafarooqui/rtl
-    tag: 0.12.0
+    tag: 0.12.2
 lndmon:
   enable: false
   port: 9092
