@@ -1,0 +1,47 @@
+{{- if .Values.rtl.enable -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "lnd.fullname" . }}-rtl
+  labels:
+    app: {{ template "lnd.name" . }}-rtl
+    chart: {{ template "lnd.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ template "lnd.name" . }}-rtl
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "lnd.name" . }}-rtl
+        release: {{ .Release.Name }}
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: rtl
+          image: {{ .Values.rtl.image.repository }}:{{ .Values.rtl.image.tag }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.rtl.port }}
+          volumeMounts:
+            - name: config
+              mountPath: /RTL/RTL-Config.json
+              subPath: RTL-Config.json
+            - name: nodes
+              mountPath: /nodes
+          resources:
+            requests:
+              cpu: "10m"
+        {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ template "lnd.fullname" . }}-rtl
+        - name: nodes
+          secret:
+            secretName: {{ .Values.rtl.nodeMacaroonSecret}}
