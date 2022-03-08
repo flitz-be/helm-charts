@@ -61,6 +61,21 @@ spec:
               mountPath: /bitcoin/.bitcoin/bitcoin.conf
               subPath: bitcoin.conf
             {{- end }}
+        {{- if .Values.miningCronjob.enabled }}
+        - name: regtest-mining-cronjob
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          command: ['/bin/sh']
+          args:
+            - "-c"
+            - "while true; do bitcoin-cli -regtest generate 1; sleep {{ .Values.miningCronjob.intervalSeconds }}; done"
+          volumeMounts:
+            {{- if .Values.configurationFile }}
+            - name: config
+              mountPath: /bitcoin/.bitcoin/bitcoin.conf
+              subPath: bitcoin.conf
+            {{- end }}
+        {{- end }}
       volumes:
         {{- if .Values.configurationFile }}
         - name: config

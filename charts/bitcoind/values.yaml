@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 terminationGracePeriodSeconds: 30
 image:
-  repository: docker pull ghcr.io/getalby/docker-bitcoind
+  repository: ghcr.io/getalby/docker-bitcoind
   tag: v22.0
   pullPolicy: IfNotPresent
 
@@ -36,6 +36,9 @@ resources: {}
 #    memory: 512Mi
 #    cpu: 300m
 
+miningCronjob:
+  enabled: false
+  intervalSeconds: 600
 # Custom bitcoind configuration file used to override default bitcoind settings
 configurationFile:
   bitcoin.conf: |-
