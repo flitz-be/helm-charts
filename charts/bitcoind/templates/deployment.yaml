@@ -68,7 +68,7 @@ spec:
           command: ['/bin/sh']
           args:
             - "-c"
-            - "while true; do bitcoin-cli -regtest generate 1; sleep {{ .Values.miningCronjob.intervalSeconds }}; done"
+            - "while true; do bitcoin-cli -generate 1; sleep {{ .Values.miningCronjob.intervalSeconds }}; done"
           volumeMounts:
             {{- if .Values.configurationFile }}
             - name: config
