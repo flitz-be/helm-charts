@@ -40,8 +40,8 @@ spec:
   selector:
     app: {{ template "lnd.name" . }}
     release: {{ .Release.Name }}
-{{- if .Values.rtl.enable -}}
 ---
+{{- if .Values.rtl.enable -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -60,8 +60,8 @@ spec:
     app: {{ template "lnd.name" . }}-rtl
     release: {{ .Release.Name }}
   {{- end }}
-{{- if .Values.lndmon.enable -}}
 ---
+{{- if .Values.lndmon.enable -}}
 apiVersion: v1
 kind: Service
 metadata:
