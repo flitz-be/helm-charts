@@ -87,24 +87,6 @@ spec:
             requests:
               cpu: "10m"
         {{- end }}
-        {{- if .Values.lndmon.enable }}
-        - name: lndmon
-          image: {{ .Values.lndmon.image.repository }}:{{ .Values.lndmon.image.tag }}
-          # go to sleep first to give lnd a chance to start
-          command: ['/bin/sh']
-          args:
-            - "-c"
-            - "sleep {{ .Values.lndmon.sleep }} && /bin/lndmon --lnd.network={{ .Values.lndmon.lndNetwork }} --lnd.host={{ .Values.lndmon.lndHost }} --lnd.macaroondir={{ .Values.lndmon.macaroonDir }} --lnd.tlspath={{ .Values.lndmon.tlsPath }} --prometheus.listenaddr={{ .Values.lndmon.listenaddr }}"
-          ports:
-            - name: lndmon
-              containerPort: {{ .Values.lndmon.port }}
-          volumeMounts:
-            - name: data
-              mountPath: /root/
-          resources:
-            requests:
-              cpu: "10m"
-        {{- end }}
         {{- if .Values.lndbackup.enable }}
         - name: lndbackup
           image: "{{ .Values.lndbackup.image.repository }}:{{ .Values.lndbackup.image.tag }}"

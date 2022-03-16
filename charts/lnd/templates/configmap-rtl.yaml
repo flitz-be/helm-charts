@@ -1,3 +1,4 @@
+{{- if .Values.rtl.enable -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,3 +10,4 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
 {{ toYaml .Values.rtl.config | indent 2 }}
+{{- end }}

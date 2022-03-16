@@ -18,11 +18,6 @@ spec:
     - name: prometheus
       port: {{ .Values.internalServices.prometheusPort }}
       targetPort: prometheus
-    {{- if .Values.lndmon.enable }}
-    - name: lndmon-prometheus
-      port: {{ .Values.lndmon.port }}
-      targetPort: lndmon
-    {{- end }}
   selector:
     app: {{ template "lnd.name" . }}
     release: {{ .Release.Name }}
@@ -63,5 +58,25 @@ spec:
       targetPort: 3000
   selector:
     app: {{ template "lnd.name" . }}-rtl
+    release: {{ .Release.Name }}
+  {{- end }}
+{{- if .Values.lndmon.enable -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "lnd.fullname" . }}-lndmon
+  labels:
+    app: {{ template "lnd.name" . }}-lndmon
+    chart: {{ template "lnd.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    - name: http
+      port: {{ .Values.lndmon.port }}
+      targetPort: lndmon
+  selector:
+    app: {{ template "lnd.name" . }}-lndmon
     release: {{ .Release.Name }}
   {{- end }}

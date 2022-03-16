@@ -56,7 +56,6 @@ spec:
           resources:
             requests:
               cpu: "10m"
-        {{- end }}
       volumes:
         - name: rtl
           emptyDir: {}
@@ -68,3 +67,4 @@ spec:
         - name: nodes
           secret:
             secretName: {{ .Values.rtl.nodeMacaroonSecret}}
+{{- end }}
