@@ -162,6 +162,7 @@ rtl:
 lndmon:
   enable: false
   port: 9092
+  sleep: 30
   listenaddr: 0.0.0.0:9092
   macaroonDir: /root/
   tlsPath: /root/tls.cert

@@ -28,7 +28,7 @@ spec:
           command: ['/bin/sh']
           args:
             - "-c"
-            - "/bin/lndmon --lnd.network={{ .Values.lndmon.lndNetwork }} --lnd.host={{ .Values.lndmon.lndHost }} --lnd.macaroondir={{ .Values.lndmon.macaroonDir }} --lnd.tlspath={{ .Values.lndmon.tlsPath }} --prometheus.listenaddr={{ .Values.lndmon.listenaddr }}"
+            - "sleep {{ .Values.lndmon.sleep }} && /bin/lndmon --lnd.network={{ .Values.lndmon.lndNetwork }} --lnd.host={{ .Values.lndmon.lndHost }} --lnd.macaroondir={{ .Values.lndmon.macaroonDir }} --lnd.tlspath={{ .Values.lndmon.tlsPath }} --prometheus.listenaddr={{ .Values.lndmon.listenaddr }}"
           volumeMounts:
             - name: credentials
               mountPath: /root/
