@@ -15,6 +15,7 @@ This respoitory contains [Helm](https://helm.sh) charts for the following projec
 * [Postgres](charts/postgresql)
 * [Clickhouse](charts/clickhouse)
 * [Plausible](charts/plausible-analytics)
+* [Superset](charts/superset)
 
 
 ```
