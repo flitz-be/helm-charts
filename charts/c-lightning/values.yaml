@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: kiwiidb/c-lightning
-  tag: v0.10.2
+  repository: ghcr.io/flitz-be/c-lightning-docker
+  tag: master-1cb596d
   pullPolicy: Always
 
 # Ports that are exposed to other pods in your cluster
@@ -36,16 +36,9 @@ args:
   - "--disable-plugin=bcli" 
   - "--addr=0.0.0.0:9735"
   - "--plugin=/opt/lightningd/plugins/trustedcoin_linux_amd64"
-  - "--plugin=/opt/lightningd/plugins/sparko_linux_amd64"
-  - "--plugin=/opt/lightningd/plugins/rebalance/rebalance.py"
-  - "--plugin=/usr/local/bin/clboss"
-  - "--sparko-host=0.0.0.0"
   - "--experimental-offers"
   # required when extra config enabled
   - "--conf=/root/config/lightning.conf"
-boltz:
-  api: https://boltz.exchange/api
-  node: 026165850492521f4ac8abd9bd8088123446d126f648ca35e60f88177dc149ceb2
 extraConfig:
   enabled: false
   secretName: c-lightning-extra-config
