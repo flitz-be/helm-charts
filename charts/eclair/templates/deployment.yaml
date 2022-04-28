@@ -36,7 +36,7 @@ spec:
           image: busybox
           command: ['sh', '-c', 'cp /configmap/* /data/']
           volumeMounts:
-            - name: extraConfig
+            - name: extraconfig
               mountPath: /configmap
             - name: data
               mountPath: /data
@@ -78,7 +78,7 @@ spec:
           configMap:
             name: {{ template "eclair.fullname" . }}-config
         {{ if .Values.extraConfig.enabled }}
-        - name: extraConfig
+        - name: extraconfig
           projected:
             sources:
             - secret:
