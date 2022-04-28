@@ -31,6 +31,16 @@ spec:
               mountPath: /configmap
             - name: data
               mountPath: /data
+        {{ if .Values.extraConfig.enabled }}
+        - name: copy-extra-config
+          image: busybox
+          command: ['sh', '-c', 'cp /configmap/* /data/']
+          volumeMounts:
+            - name: extraConfig
+              mountPath: /configmap
+            - name: data
+              mountPath: /data
+        {{ end }}
       containers:
         - name: {{ template "eclair.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -67,3 +77,10 @@ spec:
         - name: config
           configMap:
             name: {{ template "eclair.fullname" . }}-config
+        {{ if .Values.extraConfig.enabled }}
+        - name: extraConfig
+          projected:
+            sources:
+            - secret:
+                name: {{ .Values.extraConfig.secretName }}
+        {{ end }}

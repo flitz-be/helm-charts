@@ -48,6 +48,9 @@ configurationFile:
     eclair.bitcoind.zmqblock="tcp://CHANGEME:28332"
     eclair.bitcoind.zmqtx="tcp://CHANGEME:28333"
 
+extraConfig:
+  enabled: false
+  secretName: eclair-extra-config
 persistence:
   enabled: true
   ## database data Persistent Volume Storage Class
