@@ -34,7 +34,7 @@ spec:
         {{ if .Values.extraConfig.enabled }}
         - name: copy-extra-config
           image: busybox
-          command: ['sh', '-c', 'cp /configmap/* /data/']
+          command: ['sh', '-c', 'cat /configmap/* >> /data/eclair.conf']
           volumeMounts:
             - name: extraconfig
               mountPath: /configmap
