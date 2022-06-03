@@ -108,6 +108,62 @@ spec:
             - name: DISABLE_REGISTRATION
               value: {{ .Values.disableRegistration | toString | quote }}
             {{- end }}
+            {{- if .Values.google.clientID }}
+            - name: GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: GOOGLE_CLIENT_ID
+                  name: {{ include "plausible-analytics.fullname" . }}
+            {{- end }}
+            {{- if .Values.google.clientSecret }}
+            - name: GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: GOOGLE_CLIENT_SECRET
+                  name: {{ include "plausible-analytics.fullname" . }}
+            {{- end }}
+            {{- if .Values.twitter.consumer.key }}
+            - name: TWITTER_CONSUMER_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: TWITTER_CONSUMER_KEY
+                  name: {{ include "plausible-analytics.fullname" . }}
+            {{- end }}
+            {{- if .Values.twitter.consumer.secret }}
+            - name: TWITTER_CONSUMER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: TWITTER_CONSUMER_SECRET
+                  name: {{ include "plausible-analytics.fullname" . }}
+            {{- end }}
+            {{- if .Values.twitter.access.token }}
+            - name: TWITTER_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: TWITTER_ACCESS_TOKEN
+                  name: {{ include "plausible-analytics.fullname" . }}
+            {{- end }}
+            {{- if .Values.twitter.access.secret }}
+            - name: TWITTER_ACCESS_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: TWITTER_ACCESS_TOKEN_SECRET
+                  name: {{ include "plausible-analytics.fullname" . }}
+            {{- end }}
+            {{- if .Values.postmark.apiKey }}
+            - name: POSTMARK_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: POSTMARK_API_KEY
+                  name: {{ include "plausible-analytics.fullname" . }}
+            {{- end }}
+            {{- if .Values.geoliteCountryDB }}
+            - name: GEOLITE2_COUNTRY_DB
+              valueFrom:
+                secretKeyRef:
+                  key: GEOLITE2_COUNTRY_DB
+                  name: {{ include "plausible-analytics.fullname" . }}
+          {{- end }}
           ports:
             - name: http
               containerPort: 8000
@@ -255,62 +311,6 @@ spec:
                   name: {{ include "plausible-analytics.fullname" . }}
             {{- end }}
             {{- end }}
-            {{- if .Values.google.clientID }}
-            - name: GOOGLE_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  key: GOOGLE_CLIENT_ID
-                  name: {{ include "plausible-analytics.fullname" . }}
-            {{- end }}
-            {{- if .Values.google.clientSecret }}
-            - name: GOOGLE_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  key: GOOGLE_CLIENT_SECRET
-                  name: {{ include "plausible-analytics.fullname" . }}
-            {{- end }}
-            {{- if .Values.twitter.consumer.key }}
-            - name: TWITTER_CONSUMER_KEY
-              valueFrom:
-                secretKeyRef:
-                  key: TWITTER_CONSUMER_KEY
-                  name: {{ include "plausible-analytics.fullname" . }}
-            {{- end }}
-            {{- if .Values.twitter.consumer.secret }}
-            - name: TWITTER_CONSUMER_SECRET
-              valueFrom:
-                secretKeyRef:
-                  key: TWITTER_CONSUMER_SECRET
-                  name: {{ include "plausible-analytics.fullname" . }}
-            {{- end }}
-            {{- if .Values.twitter.access.token }}
-            - name: TWITTER_ACCESS_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  key: TWITTER_ACCESS_TOKEN
-                  name: {{ include "plausible-analytics.fullname" . }}
-            {{- end }}
-            {{- if .Values.twitter.access.secret }}
-            - name: TWITTER_ACCESS_TOKEN_SECRET
-              valueFrom:
-                secretKeyRef:
-                  key: TWITTER_ACCESS_TOKEN_SECRET
-                  name: {{ include "plausible-analytics.fullname" . }}
-            {{- end }}
-            {{- if .Values.postmark.apiKey }}
-            - name: POSTMARK_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  key: POSTMARK_API_KEY
-                  name: {{ include "plausible-analytics.fullname" . }}
-            {{- end }}
-            {{- if .Values.geoliteCountryDB }}
-            - name: GEOLITE2_COUNTRY_DB
-              valueFrom:
-                secretKeyRef:
-                  key: GEOLITE2_COUNTRY_DB
-                  name: {{ include "plausible-analytics.fullname" . }}
-          {{- end }}
           volumeMounts:
             - name: app-tmp
               mountPath: /app/tmp
