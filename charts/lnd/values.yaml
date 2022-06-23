@@ -169,6 +169,7 @@ lndmon:
   lndNetwork: regtest
   lndHost: your-lnd-host:10009
   secretName: your-lnd-credentials-secret
+  extraOptions: --disablegraph
   image:
     repository: lnzap/lndmon
     tag: 0.1.0-zap.2
