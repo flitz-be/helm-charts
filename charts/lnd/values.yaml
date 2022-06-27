@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: btcpayserver/lnd
-  tag: v0.14.1-beta
+  repository: lightninglabs/lnd
+  tag: v0.15.0-beta
   pullPolicy: IfNotPresent
 
 # Ports that are exposed to other pods in your cluster
