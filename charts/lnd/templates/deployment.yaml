@@ -37,7 +37,7 @@ spec:
       containers:
         - name: {{ template "lnd.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          command: ["lnd"]
+          command: {{ .Values.command }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
