@@ -7,7 +7,8 @@ image:
   tag: v0.15.0-beta
   pullPolicy: IfNotPresent
 
-command: ["lnd"]
+command:
+  - lnd
 # Ports that are exposed to other pods in your cluster
 internalServices:
   rpcPort: 10009
