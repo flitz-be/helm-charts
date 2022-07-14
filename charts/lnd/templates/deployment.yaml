@@ -26,7 +26,7 @@ spec:
       initContainers:
         - name: copy-lnd-config
           image: busybox
-          command: ['sh', '-c', 'find /configmap -type f -name "*.conf" -exec cat {} \; > /root/.lnd/lnd.conf']
+          command: ['sh', '-c', 'find /configmap -type f -exec cat {} \; > /root/.lnd/lnd.conf']
           volumeMounts:
             - name: configmap
               subPath: lnd.conf
