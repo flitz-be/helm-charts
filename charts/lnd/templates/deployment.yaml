@@ -31,10 +31,10 @@ spec:
             - name: configmap
               subPath: lnd.conf
               mountPath: /configmap/
-            {{- if .Values.extraConfig }}
-            - name: extraConfig
+            {{- if .Values.extraconfig }}
+            - name: extraconfig
               mountPath: /configmap/
-              subPath: {{ .Values.extraConfig.secretKey}}
+              subPath: {{ .Values.extraconfig.secretKey}}
             {{- end }}
             - name: config
               mountPath: /root/.lnd/
@@ -131,10 +131,10 @@ spec:
           configMap:
             name: {{ template "lnd.fullname" . }}
         {{- end }}
-        {{- if .Values.extraConfig }}
-        - name: extraConfig
+        {{- if .Values.extraconfig }}
+        - name: extraconfig
           secret:
-            secretName: {{ .Values.extraConfig.secretName}}
+            secretName: {{ .Values.extraconfig.secretName}}
         {{- end }}
         - name: data
         {{- if .Values.persistence.enabled }}
