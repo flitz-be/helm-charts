@@ -3,9 +3,9 @@ entries:
   bitcoind:
   - apiVersion: v1
     appVersion: 0.17.1
-    created: "2022-07-14T13:30:31.275826843Z"
+    created: "2022-07-14T14:15:37.148029001Z"
     description: Bitcoin is an innovative payment network and a new kind of money.
-    digest: 98ba2ca80d42cf647f123193749c4b69cb9f29b88a68da973c6fab2201fb913d
+    digest: e6a509b9d69a40333f7e4a71d20ff3ea6db0855289ddf9db80d5d4aff793006c
     home: https://bitcoin.org/
     icon: https://bitcoin.org/img/icons/logotop.png
     keywords:
@@ -148,9 +148,9 @@ entries:
   c-lightning:
   - apiVersion: v1
     appVersion: 0.10.2
-    created: "2022-07-14T13:30:31.276541236Z"
+    created: "2022-07-14T14:15:37.1485454Z"
     description: A C implementation of a Lightning Network node
-    digest: 8c8651f7a239374b5ce68c74bb63657bb29b3ee92e4ef18747bf92019d2504cb
+    digest: 463e481d59cfce311a162bdf88b1918d713f2efb76000af13ce7a852b9707c57
     home: https://github.com/elementsproject/c-lightning
     keywords:
     - c-lightning
@@ -294,9 +294,9 @@ entries:
         url: https://cert-manager.io/public-keys/cert-manager-keyring-2021-09-20-1020CF3C033D4F35BAE1C19E1226061C665DF13E.gpg
     apiVersion: v1
     appVersion: v1.8.0
-    created: "2022-07-14T13:30:31.281669685Z"
+    created: "2022-07-14T14:15:37.152056591Z"
     description: A Helm chart for cert-manager
-    digest: 3e3924d387d4eac7e78c7e3df756d2ef1505e1e5fb7d06fe2979c35f88062570
+    digest: fb2d4701a61a5cd66f13483986c1329cf5a85adadaf99d48da229c71cd46656b
     home: https://github.com/cert-manager/cert-manager
     icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.png
     keywords:
@@ -339,11 +339,11 @@ entries:
   clickhouse:
   - apiVersion: v1
     appVersion: "19.14"
-    created: "2022-07-14T13:30:31.283283369Z"
+    created: "2022-07-14T14:15:37.153772386Z"
     description: ClickHouse is an open source column-oriented database management
       system capable of real time generation of analytical data reports using SQL
       queries
-    digest: 4969700e6c4c2d5a9c6c38610c82841af85da3bf4d563c6be4231771cb7055d8
+    digest: 8abdacfc4ede542460e41ea5d3d619630b14f1aa543500ee9be057f48557f35d
     home: https://clickhouse.yandex/
     icon: https://clickhouse.yandex/images/logo.png
     keywords:
@@ -362,9 +362,9 @@ entries:
   eclair:
   - apiVersion: v1
     appVersion: 0.10.2
-    created: "2022-07-14T13:30:31.283772664Z"
+    created: "2022-07-14T14:15:37.154418484Z"
     description: A Scala implementation of a Lightning Network node
-    digest: 85f4862e9409731bcd216204594f21417d703dabdf317fc3a30fb3a414e0ef05
+    digest: 52bfdc0efb6564c2a43b49ef55aa119f7a7d6d6c5144f620ef632e526f7ebbd3
     keywords:
     - eclair
     - cryptocurrency
@@ -458,9 +458,9 @@ entries:
   grafana-agent-resources:
   - apiVersion: v1
     appVersion: 1.16.0
-    created: "2022-07-14T13:30:31.284976652Z"
+    created: "2022-07-14T14:15:37.155440182Z"
     description: A Helm chart for Kubernetes
-    digest: 71e7f9901085dfe38ee9ee2c2d0ad2c2530b0f876761873f953cf57896983925
+    digest: 74fd2b21cfd70bbaa01c5594110f4dd6e8b87f66c5b9b0c8a62f6fc60582ae8c
     name: grafana-agent-resources
     type: application
     urls:
@@ -469,9 +469,9 @@ entries:
   kube-state-metrics:
   - apiVersion: v2
     appVersion: 2.4.1
-    created: "2022-07-14T13:30:31.285944442Z"
+    created: "2022-07-14T14:15:37.156340279Z"
     description: Install kube-state-metrics to generate and expose cluster-level metrics
-    digest: b108c2b37769fdbe70aa11bb48a03db415f1f6401ed093654e0d63071446ac37
+    digest: f4d19550a468baee028d360d62b0a25fbb8328ef6184bd147153a92fe618cf6c
     home: https://github.com/kubernetes/kube-state-metrics/
     keywords:
     - metric
@@ -493,6 +493,24 @@ entries:
     - https://flitz-be.github.io/helm-charts/kube-state-metrics-4.7.0.tgz
     version: 4.7.0
   lnd:
+  - apiVersion: v1
+    appVersion: 0.14.1
+    created: "2022-07-14T14:15:37.157182677Z"
+    description: A golang implementation of a Lightning Network node
+    digest: d910c3f97556010aa0717167b314b35660a6a3d48bb7a78d5902f6fba4373c5c
+    home: https://github.com/lightningnetwork/lnd
+    keywords:
+    - lnd
+    - bitcoin
+    maintainers:
+    - email: kwinten@flitz.be
+      name: kiwiidb
+    name: lnd
+    sources:
+    - https://github.com/kubernetes/charts
+    urls:
+    - https://flitz-be.github.io/helm-charts/lnd-0.17.8.tgz
+    version: 0.17.8
   - apiVersion: v1
     appVersion: 0.14.1
     created: "2022-07-14T13:30:31.286921633Z"
@@ -1768,9 +1786,9 @@ entries:
   lndhub:
   - apiVersion: v2
     appVersion: v1.4.1
-    created: "2022-07-14T13:30:31.287386528Z"
+    created: "2022-07-14T14:15:37.157725176Z"
     description: A Helm chart for Kubernetes
-    digest: 2ccc22171ab90b58266d75b3b8422246670c5f9dfe0678fda5d59da8e322109b
+    digest: da8ef4d024ce1a2ff5d713450adc5d3a916cfa6e1d047223f9e40e534e529407
     name: lndhub
     type: application
     urls:
@@ -1779,11 +1797,11 @@ entries:
   nginx-ingress:
   - apiVersion: v1
     appVersion: v0.34.1
-    created: "2022-07-14T13:30:31.290590596Z"
+    created: "2022-07-14T14:15:37.15991207Z"
     deprecated: true
     description: DEPRECATED! An nginx Ingress controller that uses ConfigMap to store
       the nginx configuration.
-    digest: 0333ef70dfd2211f2f3e75620c785bd74f64bcab8c929e53f9e9b762b5a7b573
+    digest: b18ed58de45ef25c69ea8025643683a65f12f9993e4b8a6db4370b93c323de9c
     home: https://github.com/kubernetes/ingress-nginx
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
     keywords:
@@ -1799,10 +1817,10 @@ entries:
   plausible-analytics:
   - apiVersion: v2
     appVersion: v1.4.4
-    created: "2022-07-14T13:30:31.291692985Z"
+    created: "2022-07-14T14:15:37.160892867Z"
     description: A Helm Chart for Plausible Analytics - a simple and privacy-friendly
       alternative to Google Analytics
-    digest: aa7386e8be75193a3773a5ed8af9588199032e921d91a0425c6fa32aaf7a5144
+    digest: 8b557253ee155a7cab5947134603383d5c6de1a64a0fbac025fe0abae5b68e3d
     home: https://plausible.io/
     icon: https://docs.plausible.io/img/logo.svg
     keywords:
@@ -1871,7 +1889,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 14.2.0
-    created: "2022-07-14T13:30:31.297129331Z"
+    created: "2022-07-14T14:15:37.166487652Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -1879,7 +1897,7 @@ entries:
     description: PostgreSQL (Postgres) is an open source object-relational database
       known for reliability and data integrity. ACID-compliant, it supports foreign
       keys, joins, views, triggers and stored procedures.
-    digest: 49cae23063cf3511e927c3f7dfbde31c0326a36ae3b272b936bd92e9101a2479
+    digest: 088306405c7851c188dd19616892aaa199958fb5a0a41af3c25b8a222b83d15a
     home: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
     icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
     keywords:
@@ -1940,7 +1958,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 6.2.6
-    created: "2022-07-14T13:30:31.303684866Z"
+    created: "2022-07-14T14:15:37.171518439Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -1950,7 +1968,7 @@ entries:
     description: Open source, advanced key-value store. It is often referred to as
       a data structure server since keys can contain strings, hashes, lists, sets
       and sorted sets.
-    digest: cd94d5087d5b7d7cc3c3e34ffcb0b2bf41dfd4a3032f923433b2da3d7ff90519
+    digest: 861a590749afc8b52fc8202e2ccf238ed046f4efb7a1ce00d3d0b8ffbd007639
     home: https://github.com/bitnami/charts/tree/master/bitnami/redis
     icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
     keywords:
@@ -1972,7 +1990,7 @@ entries:
   superset:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2022-07-14T13:30:31.324080963Z"
+    created: "2022-07-14T14:15:37.191678686Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -1984,7 +2002,7 @@ entries:
       version: 16.3.1
     description: Apache Superset is a modern, enterprise-ready business intelligence
       web application
-    digest: 8eb0e9bd185f2ee945f5b6363cef8b363868d473b9d4a594a134e51ce1fb5629
+    digest: 5faa5ae8bffa2ae5a7e677b9e4fd4af162ac9eefef00788369a87831716b7ec6
     maintainers:
     - email: craig@craigrueda.com
       name: craig-rueda
@@ -2016,4 +2034,4 @@ entries:
     urls:
     - https://flitz-be.github.io/helm-charts/superset-0.5.10.tgz
     version: 0.5.10
-generated: "2022-07-14T13:30:31.274635755Z"
+generated: "2022-07-14T14:15:37.146747405Z"
