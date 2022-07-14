@@ -27,7 +27,7 @@ spec:
         - name: copy-lnd-config
           image: busybox
           {{- if .Values.extraconfig }}
-          command: ['sh', '-c', 'cat /configmap/lnd.conf /configmap/{{ .Values.extraconfig.secretKey}} > /root/.lnd/lnd.conf']
+          command: ['sh', '-c', 'for f in /configmap/*.conf; do (cat "${f}"; echo) > /root/.lnd/lnd.conf']
           {{- else }}
           command: ['sh', '-c', 'cat /configmap/lnd.conf > /root/.lnd/lnd.conf']
           {{- end }}
