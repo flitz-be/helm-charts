@@ -118,9 +118,9 @@ configurationFile:
     prometheus.enable=false
     prometheus.listen=0.0.0.0:8989
 #    wallet-unlock-password-file=/passwords/wallet_password
-extraConfig:
-  secretName: lnd-secret-config
-  secretKey: extra.conf
+# extraConfig:
+#   secretName: lnd-secret-config
+#   secretKey: extra.conf
 autoUnlock: false
 autoUnlockPassword: password
 
