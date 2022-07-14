@@ -29,13 +29,7 @@ spec:
           command: ['sh', '-c', 'cat /configmap/lnd.conf /configmap/{{ .Values.extraconfig.secretKey}} > /root/.lnd/lnd.conf']
           volumeMounts:
             - name: configmap
-              subPath: lnd.conf
-              mountPath: /configmap/
-            {{- if .Values.extraconfig }}
-            - name: extraconfig
-              mountPath: /configmap/
-              subPath: {{ .Values.extraconfig.secretKey}}
-            {{- end }}
+              mountPath: /configmap
             - name: config
               mountPath: /root/.lnd/
       {{- end }}
@@ -128,13 +122,14 @@ spec:
         - name: config
           emptyDir: {}
         - name: configmap
-          configMap:
-            name: {{ template "lnd.fullname" . }}
-        {{- end }}
-        {{- if .Values.extraconfig }}
-        - name: extraconfig
-          secret:
-            secretName: {{ .Values.extraconfig.secretName}}
+          projected:
+            sources:
+              - configMap:
+                name: {{ template "lnd.fullname" . }}
+              {{- if .Values.extraconfig }}
+              - secret:
+                  secretName: {{ .Values.extraconfig.secretName}}
+              {{- end }}
         {{- end }}
         - name: data
         {{- if .Values.persistence.enabled }}
