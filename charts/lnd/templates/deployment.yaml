@@ -129,10 +129,10 @@ spec:
           projected:
             sources:
               - configMap:
-                name: {{ template "lnd.fullname" . }}
+                  name: {{ template "lnd.fullname" . }}
               {{- if .Values.extraconfig }}
               - secret:
-                  secretName: {{ .Values.extraconfig.secretName}}
+                  name: {{ .Values.extraconfig.secretName}}
               {{- end }}
         {{- end }}
         - name: data
