@@ -26,10 +26,16 @@ spec:
       initContainers:
         - name: copy-lnd-config
           image: busybox
-          command: ['sh', '-c', 'cp /configmap/lnd.conf /root/.lnd/lnd.conf']
+          command: ['sh', '-c', 'cat /configmap/*.conf > /root/.lnd/lnd.conf']
           volumeMounts:
             - name: configmap
-              mountPath: /configmap
+              subPath: lnd.conf
+              mountPath: /configmap/
+            {{- if .Values.extraConfig }}
+            - name: extraConfig
+              mountPath: /configmap/
+              subPath: {{ .Values.extraConfig.secretKey}}
+            {{- end }}
             - name: config
               mountPath: /root/.lnd/
       {{- end }}
@@ -124,6 +130,11 @@ spec:
         - name: configmap
           configMap:
             name: {{ template "lnd.fullname" . }}
+        {{- end }}
+        {{- if .Values.extraConfig }}
+        - name: extraConfig
+          secret:
+            secretName: {{ .Values.extraConfig.secretName}}
         {{- end }}
         - name: data
         {{- if .Values.persistence.enabled }}
