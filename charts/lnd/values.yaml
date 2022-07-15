@@ -20,7 +20,7 @@ internalServices:
 # Not for production!
 ingress:
   rest:
-    enabled: false
+    enable: false
     annotations:
       kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -136,7 +136,7 @@ lit:
     repository: ghcr.io/flitz-be/lightning-terminal
     tag: master-cd072d9
 rtl:
-  enable: false
+  enable: true
   port: 3000
   config:
     RTL-Config.json: |-
