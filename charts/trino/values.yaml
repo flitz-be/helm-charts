@@ -8,8 +8,7 @@ image:
   # Overrides the image tag whose default is the chart version.
   tag: latest
 
-imagePullSecrets:
-  - name: registry-credentials
+imagePullSecrets: []
 
 server:
   workers: 2

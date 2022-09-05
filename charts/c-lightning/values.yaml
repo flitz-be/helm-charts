@@ -4,7 +4,7 @@
 
 image:
   repository: ghcr.io/flitz-be/c-lightning-docker
-  tag: master-1cb596d
+  tag: master-40b7f0f
   pullPolicy: Always
 
 # Ports that are exposed to other pods in your cluster
