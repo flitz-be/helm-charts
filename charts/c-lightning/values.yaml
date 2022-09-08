@@ -15,6 +15,8 @@ internalServices:
 externalServices:
   p2pPort: 9735
   type: LoadBalancer
+  # commando:
+  #   port: 9736
 
   # Ingress for Sparko REST API
 ingress:

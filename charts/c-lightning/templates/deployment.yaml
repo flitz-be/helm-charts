@@ -33,6 +33,10 @@ spec:
               containerPort: {{ .Values.internalServices.rpcPort }}
             - name: p2p
               containerPort: {{ .Values.externalServices.p2pPort }}
+            {{- with .Values.externalServices.commando }}
+            - name: commando
+              containerPort: {{ .port }}
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: /root/.lightning
