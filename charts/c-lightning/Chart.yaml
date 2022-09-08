@@ -14,4 +14,4 @@ maintainers:
 name: c-lightning
 sources:
 - https://github.com/kubernetes/charts
-version: 0.5.0
+version: 0.6.0
