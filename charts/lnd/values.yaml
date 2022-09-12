@@ -176,8 +176,8 @@ lndmon:
   secretName: your-lnd-credentials-secret
   extraOptions: --disablegraph
   image:
-    repository: lnzap/lndmon
-    tag: 0.1.0-zap.2
+    repository: lightninglabs/lndmon
+    tag: v0.2.1
 lndbackup:
   enable: false
   sleep: 30
