@@ -94,7 +94,6 @@ resources:
     cpu: 100m
   limits:
     memory: 512Mi
-    cpu: 200m
 
 # The network lnd is running on
 network: testnet
