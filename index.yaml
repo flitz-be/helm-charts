@@ -3,9 +3,9 @@ entries:
   bitcoind:
   - apiVersion: v1
     appVersion: 0.17.1
-    created: "2022-11-30T18:24:58.659599844Z"
+    created: "2022-12-24T11:37:56.799426432Z"
     description: Bitcoin is an innovative payment network and a new kind of money.
-    digest: 73a55e39d1ba522bab809df93cf98f190801eed942a3e689d94de8772cfe59ff
+    digest: 59afcace0ea205fba9b38573093e00c056ec2c32bf538b1a8960537681a82e35
     home: https://bitcoin.org/
     icon: https://bitcoin.org/img/icons/logotop.png
     keywords:
@@ -148,9 +148,9 @@ entries:
   c-lightning:
   - apiVersion: v1
     appVersion: 0.11.0
-    created: "2022-11-30T18:24:58.66021674Z"
+    created: "2022-12-24T11:37:56.80000144Z"
     description: A C implementation of a Lightning Network node
-    digest: 7156779525c2f81d599cf312bf823aa0a26037243b7f0304f010b5e15d3980c3
+    digest: 15d4232c3ffb816521fa96744f97daf7d57a6f90ca9c90774145859e1bab2ebc
     home: https://github.com/elementsproject/c-lightning
     keywords:
     - c-lightning
@@ -314,9 +314,9 @@ entries:
         url: https://cert-manager.io/public-keys/cert-manager-keyring-2021-09-20-1020CF3C033D4F35BAE1C19E1226061C665DF13E.gpg
     apiVersion: v1
     appVersion: v1.9.1
-    created: "2022-11-30T18:24:58.664535813Z"
+    created: "2022-12-24T11:37:56.80548002Z"
     description: A Helm chart for cert-manager
-    digest: 24fc5c20eef4600023d9464ba740f259429a39a496ddfbdc511f194f18c02c6e
+    digest: c2323ccf19ce7815fd5fa7daa7cbd4f3f003d09b186d1bc2b2852da174eef2ae
     home: https://github.com/cert-manager/cert-manager
     icon: https://raw.githubusercontent.com/cert-manager/cert-manager/d53c0b9270f8cd90d908460d69502694e1838f5f/logo/logo-small.png
     keywords:
@@ -387,11 +387,11 @@ entries:
   clickhouse:
   - apiVersion: v1
     appVersion: "19.14"
-    created: "2022-11-30T18:24:58.665976503Z"
+    created: "2022-12-24T11:37:56.807077443Z"
     description: ClickHouse is an open source column-oriented database management
       system capable of real time generation of analytical data reports using SQL
       queries
-    digest: 4a816cc90945cae3fd45918a4fbe1ea8d82fce79bff8c745c5ca60267855ff2d
+    digest: 3a36cb4f6220cf50665530f1c4fb56b1c003df507716701c5a1364c57b4e7583
     home: https://clickhouse.yandex/
     icon: https://clickhouse.yandex/images/logo.png
     keywords:
@@ -410,9 +410,9 @@ entries:
   eclair:
   - apiVersion: v1
     appVersion: 0.10.2
-    created: "2022-11-30T18:24:58.6664375Z"
+    created: "2022-12-24T11:37:56.807594851Z"
     description: A Scala implementation of a Lightning Network node
-    digest: 73db5923678f04250b6c58c870fb3e342062c0198334b3fbc1a0416e3ba2cabb
+    digest: 623241ac8a08154c409bd09d71d8ec36c51f96c44f4d2f3f8d5a869dac0330c9
     keywords:
     - eclair
     - cryptocurrency
@@ -506,9 +506,9 @@ entries:
   generic-cronjob:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-30T18:24:58.666769298Z"
+    created: "2022-12-24T11:37:56.807971256Z"
     description: A Helm chart for Kubernetes
-    digest: 452646d7a7871e4943cbc7eb4257d141c4d70cacd2b9ba8aa659c577aef8b8df
+    digest: 7d4ce17b2d72125d856cccccb5caadaca9b921dc39d88db42149965aea9a8b62
     name: generic-cronjob
     type: application
     urls:
@@ -517,9 +517,9 @@ entries:
   generic-microservice:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-30T18:24:58.667274295Z"
+    created: "2022-12-24T11:37:56.808533364Z"
     description: A Helm chart for Kubernetes
-    digest: 37a9a61d06f48af6b4f63cd6b6d0d4a30cbb83ce2d199d138c70c6e47a9a0cc6
+    digest: 0e102f50d206f8df1eafc1696870c3dfe56dd853c7460702eeed7b7b8f304af7
     name: generic-microservice
     type: application
     urls:
@@ -528,9 +528,9 @@ entries:
   grafana-agent-resources:
   - apiVersion: v1
     appVersion: 1.16.0
-    created: "2022-11-30T18:24:58.667956191Z"
+    created: "2022-12-24T11:37:56.809187274Z"
     description: A Helm chart for Kubernetes
-    digest: 4563db8c11cb79c829c06550f165da9c0d8436b8a1f5eb8a3805cf26c79aa114
+    digest: 8f3dc141a1d487f2ecba2929dd8cfbd5b9cf3845d03058f0e3fe235791514248
     name: grafana-agent-resources
     type: application
     urls:
@@ -604,7 +604,7 @@ entries:
       artifacthub.io/operator: "true"
     apiVersion: v2
     appVersion: 0.56.3
-    created: "2022-11-30T18:24:58.695753112Z"
+    created: "2022-12-24T11:37:56.844637789Z"
     dependencies:
     - condition: kubeStateMetrics.enabled
       name: kube-state-metrics
@@ -622,7 +622,7 @@ entries:
       and Prometheus rules combined with documentation and scripts to provide easy
       to operate end-to-end Kubernetes cluster monitoring with Prometheus using the
       Prometheus Operator.
-    digest: 1545308574324c2cf24e7c2744a5408ea87e0281db81e8eed2d03297db87eeaa
+    digest: 9ad7d4b01aba183f3aa22063a58f4258c7dfdc2b7118fe8161ff7f6ca283f786
     home: https://github.com/prometheus-operator/kube-prometheus
     icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
     keywords:
@@ -657,9 +657,9 @@ entries:
   kube-state-metrics:
   - apiVersion: v2
     appVersion: 2.4.1
-    created: "2022-11-30T18:24:58.696886505Z"
+    created: "2022-12-24T11:37:56.845970009Z"
     description: Install kube-state-metrics to generate and expose cluster-level metrics
-    digest: 5201b400d8baf0131ac7adc6397269b4240421264a89e2585176c9dfdb282575
+    digest: 58715d6c5a4290cf7197b27109341201d63119dd8b879de8ee5f92540053ee0a
     home: https://github.com/kubernetes/kube-state-metrics/
     keywords:
     - metric
@@ -681,6 +681,24 @@ entries:
     - https://flitz-be.github.io/helm-charts/kube-state-metrics-4.7.0.tgz
     version: 4.7.0
   lnd:
+  - apiVersion: v1
+    appVersion: 0.14.1
+    created: "2022-12-24T11:37:56.847137326Z"
+    description: A golang implementation of a Lightning Network node
+    digest: 34b01372d95f4427458e04559da8331f85600d3385383fbe6818805a727eaf3c
+    home: https://github.com/lightningnetwork/lnd
+    keywords:
+    - lnd
+    - bitcoin
+    maintainers:
+    - email: kwinten@flitz.be
+      name: kiwiidb
+    name: lnd
+    sources:
+    - https://github.com/kubernetes/charts
+    urls:
+    - https://flitz-be.github.io/helm-charts/lnd-0.18.2.tgz
+    version: 0.18.2
   - apiVersion: v1
     appVersion: 0.14.1
     created: "2022-11-30T18:24:58.697945298Z"
@@ -2082,9 +2100,9 @@ entries:
   lndhub:
   - apiVersion: v2
     appVersion: v1.4.1
-    created: "2022-11-30T18:24:58.698438995Z"
+    created: "2022-12-24T11:37:56.847935537Z"
     description: A Helm chart for Kubernetes
-    digest: 98ed4bdf99a650dfe17fdcc3e32f77c6d8fd4a0ab9a76ec54f6f16c49b57977c
+    digest: 496ef775fe7cfa682a655f1b43846974f28233596bbd22b80a3563f0eb707388
     name: lndhub
     type: application
     urls:
@@ -2162,11 +2180,11 @@ entries:
   nginx-ingress:
   - apiVersion: v1
     appVersion: v0.34.1
-    created: "2022-11-30T18:24:58.71002922Z"
+    created: "2022-12-24T11:37:56.850682477Z"
     deprecated: true
     description: DEPRECATED! An nginx Ingress controller that uses ConfigMap to store
       the nginx configuration.
-    digest: 8e10261be356f9ededf514779cf0238d68968125368dd4a7efd22f6895b3528e
+    digest: 07ba06744a01aa7c89046691ea370013b1cefe0695ef256f0c2788830c8aff9b
     home: https://github.com/kubernetes/ingress-nginx
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
     keywords:
@@ -2402,10 +2420,10 @@ entries:
   trino:
   - apiVersion: v2
     appVersion: "375"
-    created: "2022-11-30T18:24:58.747245781Z"
+    created: "2022-12-24T11:37:56.851790393Z"
     description: Fast distributed SQL query engine for big data analytics that helps
       you explore your data universe
-    digest: 2928dafceef8076533ff3275f58c67c1991c14fe80d1871576d7efa6b38ae9b9
+    digest: 1d9e2c649b66afbe35ebabc06ab4611df92c78f8a4b6952c825a3f2a423ec56a
     home: https://trino.io/
     icon: https://trino.io/assets/trino.png
     maintainers:
@@ -2436,4 +2454,4 @@ entries:
     urls:
     - https://flitz-be.github.io/helm-charts/trino-0.8.0.tgz
     version: 0.8.0
-generated: "2022-11-30T18:24:58.658909549Z"
+generated: "2022-12-24T11:37:56.798640021Z"
