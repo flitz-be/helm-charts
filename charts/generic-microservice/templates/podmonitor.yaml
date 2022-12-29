@@ -1,0 +1,12 @@
+{{- if .Values.prometheus.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ include "generic-microservice.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      name: {{ include "generic-microservice.fullname" . }}
+  podMetricsEndpoints:
+  - port: prometheus
+{{- end }}
