@@ -44,7 +44,7 @@ spec:
         {{ if .Values.pluginConfig.enabled }}
         - name: copy-plugin-config
           image: busybox
-          command: ['sh', '-c', 'mkdir -p /data/plugin-resourcces/alarmbot && cat /pluginconfigmap/* >> /data/plugin-resources/alarmbot/alarmbot.conf']
+          command: ['sh', '-c', 'mkdir -p /data/plugin-resources/alarmbot && cat /pluginconfigmap/* >> /data/plugin-resources/alarmbot/alarmbot.conf']
           volumeMounts:
             - name: pluginconfig
               mountPath: /pluginconfigmap
