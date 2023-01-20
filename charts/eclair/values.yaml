@@ -51,6 +51,9 @@ configurationFile:
 extraConfig:
   enabled: false
   secretName: eclair-extra-config
+pluginConfig:
+  enabled: false
+  secretName: eclair-plugin-config
 persistence:
   enabled: true
   ## database data Persistent Volume Storage Class

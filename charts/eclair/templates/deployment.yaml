@@ -41,6 +41,16 @@ spec:
             - name: data
               mountPath: /data
         {{ end }}
+        {{ if .Values.pluginConfig.enabled }}
+        - name: copy-plugin-config
+          image: busybox
+          command: ['sh', '-c', 'cat /pluginconfigmap/* >> /data/plugin-resources/alarmbot/alarmbot.conf']
+          volumeMounts:
+            - name: pluginconfig
+              mountPath: /pluginconfigmap
+            - name: data
+              mountPath: /data
+        {{ end }}
       containers:
         - name: {{ template "eclair.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -83,4 +93,11 @@ spec:
             sources:
             - secret:
                 name: {{ .Values.extraConfig.secretName }}
+        {{ end }}
+        {{ if .Values.pluginConfig.enabled }}
+        - name: pluginconfig
+          projected:
+            sources:
+            - secret:
+                name: {{ .Values.pluginConfig.secretName }}
         {{ end }}
