@@ -3,9 +3,9 @@ entries:
   bitcoind:
   - apiVersion: v1
     appVersion: 0.17.1
-    created: "2023-02-21T08:39:44.551201427Z"
+    created: "2023-03-10T14:10:09.628066027Z"
     description: Bitcoin is an innovative payment network and a new kind of money.
-    digest: 73b17309a0bfd692e95462ab7fe5f87168670d0218281706e2ee73e1adea9afc
+    digest: 7b4b848745bf1f77bc281b05889ff2e71f439555e29263f11b4b31192759ec3f
     home: https://bitcoin.org/
     icon: https://bitcoin.org/img/icons/logotop.png
     keywords:
@@ -148,9 +148,9 @@ entries:
   c-lightning:
   - apiVersion: v1
     appVersion: 0.11.0
-    created: "2023-02-21T08:39:44.551789774Z"
+    created: "2023-03-10T14:10:09.628902926Z"
     description: A C implementation of a Lightning Network node
-    digest: 2e8528b348f031fa8a5039c9d0b8bb735f0faaf439a183ea9cbd97fa5ace760c
+    digest: 934045aa724621822e4226aab75c5b58cebf346fb92a2f36066b3d482f5ba0ac
     home: https://github.com/elementsproject/c-lightning
     keywords:
     - c-lightning
@@ -314,9 +314,9 @@ entries:
         url: https://cert-manager.io/public-keys/cert-manager-keyring-2021-09-20-1020CF3C033D4F35BAE1C19E1226061C665DF13E.gpg
     apiVersion: v1
     appVersion: v1.9.1
-    created: "2023-02-21T08:39:44.557831262Z"
+    created: "2023-03-10T14:10:09.633348519Z"
     description: A Helm chart for cert-manager
-    digest: 4ed788b8718f3f706b179421a34af8f5b6ffaa8312182b7025a47e29a4994c61
+    digest: b91405c88430919e3804ffb75781a66fa1db231674e3fd815374eaf25c02c588
     home: https://github.com/cert-manager/cert-manager
     icon: https://raw.githubusercontent.com/cert-manager/cert-manager/d53c0b9270f8cd90d908460d69502694e1838f5f/logo/logo-small.png
     keywords:
@@ -387,11 +387,11 @@ entries:
   clickhouse:
   - apiVersion: v1
     appVersion: "19.14"
-    created: "2023-02-21T08:39:44.559462994Z"
+    created: "2023-03-10T14:10:09.634777116Z"
     description: ClickHouse is an open source column-oriented database management
       system capable of real time generation of analytical data reports using SQL
       queries
-    digest: 8122b2d8656701dea137f5ac6348d2be981ce1e955be6212d208e83b5d0df3ca
+    digest: ec4fc0b90fae747c9854de052ecc4191bd27e7542783fededee1a713ec85c05d
     home: https://clickhouse.yandex/
     icon: https://clickhouse.yandex/images/logo.png
     keywords:
@@ -410,7 +410,7 @@ entries:
   datadog:
   - apiVersion: v1
     appVersion: "7"
-    created: "2023-02-21T08:39:44.573545332Z"
+    created: "2023-03-10T14:10:09.647474596Z"
     dependencies:
     - condition: clusterAgent.metricsProvider.useDatadogMetrics
       name: datadog-crds
@@ -423,7 +423,7 @@ entries:
       repository: https://prometheus-community.github.io/helm-charts
       version: 2.13.2
     description: Datadog Agent
-    digest: 78c8cd0bf86e88ccfbb82dcaaaa83784353934d08c2a2f3aabd865ae5aba61c5
+    digest: 7435cf3e9e3fc9a04e471b17c8d8669945a9194d6b4fbf2d36fd523b7f2c1c8f
     home: https://www.datadoghq.com
     icon: https://datadog-live.imgix.net/img/dd_logo_70x75.png
     keywords:
@@ -443,9 +443,9 @@ entries:
   eclair:
   - apiVersion: v1
     appVersion: 0.10.2
-    created: "2023-02-21T08:39:44.574076175Z"
+    created: "2023-03-10T14:10:09.648019795Z"
     description: A Scala implementation of a Lightning Network node
-    digest: b1a4af3413c74dfc9c117074574b9846f28cb3a36c311909eb006a4741194f4f
+    digest: a140ff525c2beacc69bec9c002a1dd3dafc809eda0e99eafcec5f1e50c0eef34
     keywords:
     - eclair
     - cryptocurrency
@@ -615,9 +615,9 @@ entries:
   generic-cronjob:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-02-21T08:39:44.574449505Z"
+    created: "2023-03-10T14:10:09.648346894Z"
     description: A Helm chart for Kubernetes
-    digest: 2084c7bc05fdcfa0b1bbf6a9ee2fe7f4aedfc9d40ab4259f868f861b5338bcf1
+    digest: bfb96515516b217212b7e052dcbf454d3bb440f06c4be5c7893446c2ef58cc11
     name: generic-cronjob
     type: application
     urls:
@@ -626,9 +626,9 @@ entries:
   generic-microservice:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-02-21T08:39:44.575050954Z"
+    created: "2023-03-10T14:10:09.648838294Z"
     description: A Helm chart for Kubernetes
-    digest: 911f5d93fa3aca35cdf10019290cf0de1b9fa0d660d0626c6c969fa64e7faa47
+    digest: c9cb029abbe421be7824dc269ebb667c02352ea8fc0119ec7add7b5c14eaaa99
     name: generic-microservice
     type: application
     urls:
@@ -647,9 +647,9 @@ entries:
   grafana-agent-resources:
   - apiVersion: v1
     appVersion: 1.16.0
-    created: "2023-02-21T08:39:44.575669304Z"
+    created: "2023-03-10T14:10:09.649434693Z"
     description: A Helm chart for Kubernetes
-    digest: 7530fc3be4bedda8b5ace8fb0b71d602fd6839a61f516309019f8ca244438745
+    digest: 8f39dde757848228c85c5dbda93b6d1c2faa328d6adc03668ccbc5f830e841f9
     name: grafana-agent-resources
     type: application
     urls:
@@ -723,7 +723,7 @@ entries:
       artifacthub.io/operator: "true"
     apiVersion: v2
     appVersion: 0.56.3
-    created: "2023-02-21T08:39:44.606709512Z"
+    created: "2023-03-10T14:10:09.688953729Z"
     dependencies:
     - condition: kubeStateMetrics.enabled
       name: kube-state-metrics
@@ -741,7 +741,7 @@ entries:
       and Prometheus rules combined with documentation and scripts to provide easy
       to operate end-to-end Kubernetes cluster monitoring with Prometheus using the
       Prometheus Operator.
-    digest: 65e81a298ff1839765befbb7f21ceb6cbe7853e0699fd09c8b751a4ea5a6bf84
+    digest: 418f8616e5e97b96c3db3665fe13eec440999eb68b898bbf32819587b4989845
     home: https://github.com/prometheus-operator/kube-prometheus
     icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
     keywords:
@@ -776,9 +776,9 @@ entries:
   kube-state-metrics:
   - apiVersion: v2
     appVersion: 2.4.1
-    created: "2023-02-21T08:39:44.607851104Z"
+    created: "2023-03-10T14:10:09.689907227Z"
     description: Install kube-state-metrics to generate and expose cluster-level metrics
-    digest: c6ef4c71d3003017e32482994fe53f8be99d66d3208b5cd660c6ac74455bc17c
+    digest: e3fdad8778890c7a3e96ea951cc6c8cd68bfd27379e4268346d9230adf0311bf
     home: https://github.com/kubernetes/kube-state-metrics/
     keywords:
     - metric
@@ -800,6 +800,24 @@ entries:
     - https://flitz-be.github.io/helm-charts/kube-state-metrics-4.7.0.tgz
     version: 4.7.0
   lnd:
+  - apiVersion: v1
+    appVersion: 0.14.1
+    created: "2023-03-10T14:10:09.690863926Z"
+    description: A golang implementation of a Lightning Network node
+    digest: ffd5b3478aa706dc77ea4d6d5ce5c6f1a22bbe68598a58e1abd67730fc0fb067
+    home: https://github.com/lightningnetwork/lnd
+    keywords:
+    - lnd
+    - bitcoin
+    maintainers:
+    - email: kwinten@flitz.be
+      name: kiwiidb
+    name: lnd
+    sources:
+    - https://github.com/kubernetes/charts
+    urls:
+    - https://flitz-be.github.io/helm-charts/lnd-0.20.0.tgz
+    version: 0.20.0
   - apiVersion: v1
     appVersion: 0.14.1
     created: "2023-02-21T08:39:44.608997297Z"
@@ -2255,9 +2273,9 @@ entries:
   lndhub:
   - apiVersion: v2
     appVersion: v1.4.1
-    created: "2023-02-21T08:39:44.609513839Z"
+    created: "2023-03-10T14:10:09.691303625Z"
     description: A Helm chart for Kubernetes
-    digest: 73a979c6f9ac8edea1edded0bd4ae858f85d0f13ae03f731c93c3b3c01631664
+    digest: 056674f4b27b9e1934fb422cbc9570c1d41285b801011cf7f0344fa6b9608a3f
     name: lndhub
     type: application
     urls:
@@ -2335,11 +2353,11 @@ entries:
   nginx-ingress:
   - apiVersion: v1
     appVersion: v0.34.1
-    created: "2023-02-21T08:39:44.613437256Z"
+    created: "2023-03-10T14:10:09.693501721Z"
     deprecated: true
     description: DEPRECATED! An nginx Ingress controller that uses ConfigMap to store
       the nginx configuration.
-    digest: afa14441ff672d1bfeb0544d31c783ea4e3dc0f3d9b578da6555daa7039dfd17
+    digest: 9ffc4525eef18c041eddf3b78f01614e5f487a12640d5b6660c662b15921be4f
     home: https://github.com/kubernetes/ingress-nginx
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
     keywords:
@@ -2496,7 +2514,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 3.11.4
-    created: "2023-02-21T08:39:44.619315531Z"
+    created: "2023-03-10T14:10:09.698535113Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -2506,7 +2524,7 @@ entries:
     description: RabbitMQ is an open source general-purpose message broker that is
       designed for consistent, highly-available messaging scenarios (both synchronous
       and asynchronous).
-    digest: 8768428e40bec8cb29823b8c961b9b70b95ccfb06e6303d0e344bc566fd81b82
+    digest: 9dcc6e4a925a6da529cf938eb710f57f0f3c081489530be829683caa426bf174
     home: https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq
     icon: https://bitnami.com/assets/stacks/rabbitmq/img/rabbitmq-stack-220x234.png
     keywords:
@@ -2607,10 +2625,10 @@ entries:
   trino:
   - apiVersion: v2
     appVersion: "375"
-    created: "2023-02-21T08:39:44.62029471Z"
+    created: "2023-03-10T14:10:09.699438612Z"
     description: Fast distributed SQL query engine for big data analytics that helps
       you explore your data universe
-    digest: b94a3d0d3f558393a90b362949d49dd6a49ec26333573464ae68fed83958b32d
+    digest: 4d282cd2554ab5ebc736266cadc8aa058795b9a61bbed4a2247ce08dc6f744a2
     home: https://trino.io/
     icon: https://trino.io/assets/trino.png
     maintainers:
@@ -2641,4 +2659,4 @@ entries:
     urls:
     - https://flitz-be.github.io/helm-charts/trino-0.8.0.tgz
     version: 0.8.0
-generated: "2023-02-21T08:39:44.550400262Z"
+generated: "2023-03-10T14:10:09.626802729Z"
