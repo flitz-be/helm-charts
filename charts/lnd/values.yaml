@@ -135,7 +135,7 @@ lit:
     repository: ghcr.io/flitz-be/lightning-terminal
     tag: master-cd072d9
 rtl:
-  enable: true
+  enable: false
   port: 3000
   config:
     RTL-Config.json: |-
@@ -180,9 +180,11 @@ lndmon:
 lndbackup:
   enable: false
   sleep: 30
+  secretName: your-lnd-credentials-secret
   env:
-    MACAROON_PATH: /root/.lnd/data/chain/bitcoin/regtest
-    TLS_CERT_PATH: /root/.lnd/tls.cert
+    RPC_HOST: alby-simnet-lnd-1
+    MACAROON_PATH: /credentials
+    TLS_CERT_PATH: /credentials/tls.cert
     NETWORK: regtest
     BUCKET_URL: s3://bucket-url/sub/folder
     S3_REGION: eu-central-1

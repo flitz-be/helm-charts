@@ -93,29 +93,6 @@ spec:
             requests:
               cpu: "10m"
         {{- end }}
-        {{- if .Values.lndbackup.enable }}
-        - name: lndbackup
-          image: "{{ .Values.lndbackup.image.repository }}:{{ .Values.lndbackup.image.tag }}"
-          command: ['/bin/sh']
-          args:
-            - "-c"
-            - "sleep {{ .Values.lndbackup.sleep }} && /bin/lndbackup"
-          env:
-            {{- range $key, $value := .Values.lndbackup.env }}
-            - name: {{ $key | quote }}
-              value: {{ $value | quote }}
-            {{- end }}
-            {{- range $key, $value := .Values.lndbackup.secrets }}
-            - name: {{ $key | quote }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ $value.secretName }}
-                  key: {{ $value.secretKey }}
-            {{- end }}
-          volumeMounts:
-          - name: data
-            mountPath: /root/
-        {{- end }}
       volumes:
         {{- if .Values.autoUnlock }}
         - name: secrets
