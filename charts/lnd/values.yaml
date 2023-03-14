@@ -197,4 +197,4 @@ lndbackup:
       secretKey: secret
   image:
     repository: ghcr.io/flitz-be/lndbackup
-    tag: 1.0.0
+    tag: master-b154e35
