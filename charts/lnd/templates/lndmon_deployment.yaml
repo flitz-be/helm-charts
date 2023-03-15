@@ -17,6 +17,10 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      {{- with .Values.lndmon.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         app: {{ template "lnd.name" . }}-lndmon
         release: {{ .Release.Name }}
