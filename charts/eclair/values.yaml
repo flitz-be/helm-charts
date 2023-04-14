@@ -57,6 +57,7 @@ pluginConfig:
 
 rtl:
   enabled: false
+  eclairExtraConfigFile: eclair-extra.conf
   password: password
   image:
     repository: shahanafarooqui/rtl

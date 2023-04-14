@@ -44,8 +44,8 @@ spec:
               mountPath: /RTL/RTL-Config.json
               subPath: RTL-Config.json
             - name: eclair-config
-              mountPath: /eclair/eclair.conf
-              subPath: eclair.conf
+              mountPath: /eclair/{{.Values.rtl.eclairExtraConfigFile}}
+              subPath: {{.Values.rtl.eclairExtraConfigFile}}
             - name: data
               mountPath: /data
       volumes:
