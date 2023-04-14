@@ -72,7 +72,6 @@ rtl:
       - host: rtl.eclair.regtest.getalby.com
         paths:
           - path: /
-            port: 3000
     tls:
       - hosts:
           - rtl.eclair.regtest.getalby.com
