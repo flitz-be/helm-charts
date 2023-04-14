@@ -16,7 +16,7 @@ data:
             "defaultNodeIndex": 1,
             "dbDirectoryPath": "/data/rtl.db",
             "SSO": {
-              "rtlSSO": 0,
+              "rtlSSO": 0
             },
             "nodes": [
               {
@@ -27,7 +27,7 @@ data:
                   "configPath": "/RTL/eclair.conf",
                 },
                 "Settings": {
-                  "lnServerUrl": "http://{{ template "eclair.fullname" . }}-internal:{{ .Values.internalServices.rpcPort}}
+                  "lnServerUrl": "http://{{ template "eclair.fullname" . }}-internal:{{ .Values.internalServices.rpcPort}}"
                 }
               }
             ]
