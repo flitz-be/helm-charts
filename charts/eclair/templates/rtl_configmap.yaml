@@ -1,4 +1,4 @@
-{{- if .Values.rtl.enable -}}
+{{- if .Values.rtl.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,27 +8,28 @@ metadata:
     chart: {{ template "eclair.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-data: |-
-  {
-          "multiPass": "{{ .Values.rtl.password}}",
-          "port": "{{ .Values.rtl.port }}",
-          "defaultNodeIndex": 1,
-          "dbDirectoryPath": "/data/rtl.db",
-          "SSO": {
-            "rtlSSO": 0,
-          },
-          "nodes": [
-            {
-              "index": 1,
-              "lnNode": "Eclair",
-              "lnImplementation": "ECL",
-              "Authentication": {
-                "configPath": "/RTL/eclair.conf",
-              },
-              "Settings": {
-                "lnServerUrl": "http://{{ template "eclair.fullname" . }}-internal:{{ .Values.internalServices.rpcPort}}
+data: 
+  RTL-Config.json: |-
+    {
+            "multiPass": "{{ .Values.rtl.password}}",
+            "port": "{{ .Values.rtl.port }}",
+            "defaultNodeIndex": 1,
+            "dbDirectoryPath": "/data/rtl.db",
+            "SSO": {
+              "rtlSSO": 0,
+            },
+            "nodes": [
+              {
+                "index": 1,
+                "lnNode": "Eclair",
+                "lnImplementation": "ECL",
+                "Authentication": {
+                  "configPath": "/RTL/eclair.conf",
+                },
+                "Settings": {
+                  "lnServerUrl": "http://{{ template "eclair.fullname" . }}-internal:{{ .Values.internalServices.rpcPort}}
+                }
               }
-            }
-          ]
-        }
+            ]
+          }
 {{- end }}

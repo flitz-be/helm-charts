@@ -1,5 +1,5 @@
-{{- if .Values.rtl.enable -}}
-{{- if .Values.rtl.ingress.enable -}}
+{{- if .Values.rtl.enabled -}}
+{{- if .Values.rtl.ingress.enabled -}}
 {{- $fullName := include "eclair.fullname" . -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
