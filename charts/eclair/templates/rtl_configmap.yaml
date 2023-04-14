@@ -1,0 +1,34 @@
+{{- if .Values.rtl.enable -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "eclair.fullname" . }}-rtl
+  labels:
+    app: {{ template "eclair.name" . }}
+    chart: {{ template "eclair.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data: |-
+  {
+          "multiPass": "{{ .Values.rtl.password}}",
+          "port": "{{ .Values.rtl.port }}",
+          "defaultNodeIndex": 1,
+          "dbDirectoryPath": "/data/rtl.db",
+          "SSO": {
+            "rtlSSO": 0,
+          },
+          "nodes": [
+            {
+              "index": 1,
+              "lnNode": "Eclair",
+              "lnImplementation": "ECL",
+              "Authentication": {
+                "configPath": "/RTL/eclair.conf",
+              },
+              "Settings": {
+                "lnServerUrl": "http://{{ template "eclair.fullname" . }}-internal:{{ .Values.internalServices.rpcPort}}
+              }
+            }
+          ]
+        }
+{{- end }}

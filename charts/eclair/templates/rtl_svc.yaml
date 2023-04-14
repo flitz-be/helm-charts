@@ -1,0 +1,19 @@
+{{- if .Values.rtl.enable -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "eclair.fullname" . }}-rtl
+  labels:
+    app: {{ template "eclair.name" . }}-rtl
+    chart: {{ template "eclair.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    - name: http
+      port: {{ .Values.rtl.port }}
+      targetPort: 3000
+  selector:
+    app: {{ template "eclair.name" . }}-rtl
+    release: {{ .Release.Name }}
+{{- end }}

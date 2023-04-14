@@ -1,0 +1,52 @@
+{{- if .Values.rtl.enable -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "eclair.fullname" . }}-rtl
+  labels:
+    app: {{ template "eclair.name" . }}-rtl
+    chart: {{ template "eclair.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ template "eclair.name" . }}-rtl
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        app: {{ template "eclair.name" . }}-rtl
+        release: {{ .Release.Name }}
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: rtl
+          image: {{ .Values.rtl.image.repository }}:{{ .Values.rtl.image.tag }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.rtl.port }}
+          volumeMounts:
+            - name: config
+              mountPath: /RTL/RTL-Config.json
+              subPath: RTL-Config.json
+            - name: eclair-config
+              mountPath: /RTL/eclair.conf
+              subPath: eclair.conf
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          # todo add persistence for db
+          emptyDir: {}
+        - name: eclair-config
+          configMap:
+            name: {{ template "eclair.fullname" . }}-config
+        - name: config
+          configMap:
+            name: {{ template "eclair.fullname" . }}-rtl
+{{- end }}
