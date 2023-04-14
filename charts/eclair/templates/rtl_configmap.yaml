@@ -24,7 +24,7 @@ data:
                 "lnNode": "Eclair",
                 "lnImplementation": "ECL",
                 "Authentication": {
-                  "configPath": "/RTL/eclair.conf",
+                  "configPath": "/RTL/eclair.conf"
                 },
                 "Settings": {
                   "lnServerUrl": "http://{{ template "eclair.fullname" . }}-internal:{{ .Values.internalServices.rpcPort}}"
