@@ -64,6 +64,19 @@ rtl:
   port: 3000
   ingress:
     enabled: false
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+    hosts:
+      - host: rtl.eclair.regtest.getalby.com
+        paths:
+          - path: /
+            port: 3000
+    tls:
+      - hosts:
+          - rtl.eclair.regtest.getalby.com
+        secretName: eclair-rtl-tls-secret
 persistence:
   enabled: true
   ## database data Persistent Volume Storage Class
