@@ -54,8 +54,10 @@ spec:
         - name: rtl
           emptyDir: {}
         - name: eclair-config
-          configMap:
-            name: {{ template "eclair.fullname" . }}-config
+          projected:
+            sources:
+            - secret:
+                name: {{ .Values.extraConfig.secretName }}
         - name: config
           configMap:
             name: {{ template "eclair.fullname" . }}-rtl
