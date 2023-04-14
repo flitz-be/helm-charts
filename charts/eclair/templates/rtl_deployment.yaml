@@ -41,7 +41,8 @@ spec:
               containerPort: {{ .Values.rtl.port }}
           volumeMounts:
             - name: rtl
-              mountPath: /RTL
+              mountPath: /RTL/RTL-Config.json
+              subPath: RTL-Config.json
             - name: eclair-config
               mountPath: /eclair/eclair.conf
               subPath: eclair.conf
