@@ -54,6 +54,15 @@ extraConfig:
 pluginConfig:
   enabled: false
   secretName: eclair-plugin-config
+
+rtl:
+  enable: true
+  image:
+    repository: shahanafarooqui/rtl
+    tag: 0.13.6
+  port: 3000
+  ingress:
+    enable: false
 persistence:
   enabled: true
   ## database data Persistent Volume Storage Class
