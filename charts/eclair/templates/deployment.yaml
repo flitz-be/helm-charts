@@ -56,8 +56,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           env:
-            - name: "JAVA_OPTS"
-              value: "-Declair.printToConsole"
+            {{- range $key, $value := .Values.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
           args:
             {{- toYaml .Values.args | nindent 12 }}
           resources:
