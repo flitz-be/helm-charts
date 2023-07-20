@@ -26,6 +26,7 @@
   env:
     {{- include "containers-common-env" . | nindent 4 }}
     {{- include "containers-cluster-agent-env" . | nindent 4 }}
+    {{- include "fips-envvar" . | nindent 4 }}
     - name: DD_LOG_LEVEL
       value: {{ .Values.agents.containers.securityAgent.logLevel | default .Values.datadog.logLevel | quote }}
     - name: DD_COMPLIANCE_CONFIG_ENABLED
@@ -33,6 +34,10 @@
     {{- if .Values.datadog.securityAgent.compliance.enabled }}
     - name: DD_COMPLIANCE_CONFIG_CHECK_INTERVAL
       value: {{ .Values.datadog.securityAgent.compliance.checkInterval | quote }}
+    {{- if .Values.datadog.securityAgent.compliance.xccdf.enabled }}
+    - name: DD_COMPLIANCE_CONFIG_XCCDF_ENABLED
+      value:  {{ .Values.datadog.securityAgent.compliance.xccdf.enabled | quote }}
+    {{- end }}
     - name: HOST_ROOT
       value: /host/root
     {{- end }}
@@ -49,31 +54,35 @@
       value: {{ .Values.datadog.dogstatsd.socketPath | quote }}
     {{- end }}
     {{- include "additional-env-entries" .Values.agents.containers.securityAgent.env | indent 4 }}
+    {{- include "additional-env-dict-entries" .Values.agents.containers.securityAgent.envDict | indent 4 }}
   volumeMounts:
     - name: config
       mountPath: {{ template "datadog.confPath" . }}
+      readOnly: true
+    - name: logdatadog
+      mountPath: {{ template "datadog.logDirectoryPath" . }}
+      readOnly: false # Need RW to write logs
     {{- if (not .Values.providers.gke.autopilot) }}
     - name: auth-token
       mountPath: {{ template "datadog.confPath" . }}/auth
       readOnly: true
-    {{- end }}
-    {{- if eq .Values.targetSystem "linux" }}
-    - name: logdatadog
-      mountPath: /var/log/datadog
-    - name: tmpdir
-      mountPath: /tmp
-      readOnly: false
     - name: dsdsocket
       mountPath: {{ (dir .Values.datadog.dogstatsd.socketPath) }}
-      readOnly: true
+      readOnly: false # Need RW for UDS DSD socket
+    {{- end }}
+    {{- if eq .Values.targetSystem "linux" }}
+    - name: tmpdir
+      mountPath: /tmp
+      readOnly: false # Need RW to write to tmp directory
     {{- include "linux-container-host-release-volumemounts" . | nindent 4 }}
     {{- end }}
     {{- include "container-crisocket-volumemounts" . | nindent 4 }}
     {{- include "container-cloudinit-volumemounts" . | nindent 4 }}
-    {{- if .Values.agents.useConfigMap }}
+    {{- if and .Values.agents.useConfigMap (eq .Values.targetSystem "linux")}}
     - name: datadog-yaml
       mountPath: {{ template "datadog.confPath" . }}/datadog.yaml
       subPath: datadog.yaml
+      readOnly: true
     {{- end }}
     {{- if eq .Values.targetSystem "linux" }}
     {{- if .Values.datadog.securityAgent.compliance.enabled }}
@@ -113,6 +122,7 @@
     - name: sysprobe-config
       mountPath: /etc/datadog-agent/system-probe.yaml
       subPath: system-probe.yaml
+      readOnly: true
     {{- end }}
     {{- end }}
 {{- if .Values.agents.volumeMounts }}

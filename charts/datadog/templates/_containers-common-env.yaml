@@ -9,6 +9,8 @@
     secretKeyRef:
       name: {{ template "datadog.apiSecretName" . }}
       key: api-key
+- name: DD_REMOTE_CONFIGURATION_ENABLED
+  value: {{ include "datadog-remoteConfiguration-enabled" . | quote }}
 {{- if (not .Values.providers.gke.autopilot) }}
 - name: DD_AUTH_TOKEN_FILE_PATH
   value: {{ template "datadog.confPath" . }}/auth/token
@@ -37,6 +39,7 @@
 {{- end }}
 {{- end }}
 {{- include "additional-env-entries" .Values.datadog.env }}
+{{- include "additional-env-dict-entries" .Values.datadog.envDict }}
 {{- if .Values.datadog.acInclude }}
 - name: DD_AC_INCLUDE
   value: {{ .Values.datadog.acInclude | quote }}

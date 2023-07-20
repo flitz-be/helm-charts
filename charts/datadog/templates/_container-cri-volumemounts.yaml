@@ -10,7 +10,7 @@
 - name: runtimesocket
   mountPath: {{ template "datadog.dockerOrCriSocketPath" . }}
 {{- if not .Values.datadog.criSocketPath }}
-- name: containerdsocket 
+- name: containerdsocket
   mountPath: \\.\pipe\containerd-containerd
 {{- end }}
 {{- end }}

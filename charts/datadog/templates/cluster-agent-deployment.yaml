@@ -49,6 +49,7 @@ spec:
       name: {{ template "datadog.fullname" . }}-cluster-agent
       annotations:
         checksum/clusteragent_token: {{ include (print $.Template.BasePath "/secret-cluster-agent-token.yaml") . | sha256sum }}
+        checksum/clusteragent-configmap: {{ include (print $.Template.BasePath "/cluster-agent-confd-configmap.yaml") . | sha256sum }}
         {{- if not .Values.datadog.apiKeyExistingSecret }}
         checksum/api_key: {{ include (print $.Template.BasePath "/secret-api-key.yaml") . | sha256sum }}
         {{- end }}
@@ -65,7 +66,6 @@ spec:
       {{- if .Values.clusterAgent.podAnnotations }}
 {{ tpl (toYaml .Values.clusterAgent.podAnnotations) . | indent 8 }}
       {{- end }}
-
     spec:
       {{- if .Values.clusterAgent.shareProcessNamespace }}
       shareProcessNamespace: {{ .Values.clusterAgent.shareProcessNamespace }}
@@ -78,6 +78,9 @@ spec:
 {{ toYaml .Values.clusterAgent.image.pullSecrets | indent 8 }}
       {{- end }}
       serviceAccountName: {{ if .Values.clusterAgent.rbac.create }}{{ template "datadog.fullname" . }}-cluster-agent{{ else }}"{{ .Values.clusterAgent.rbac.serviceAccountName }}"{{ end }}
+      {{- if .Values.clusterAgent.rbac.create  }}
+      automountServiceAccountToken: {{ .Values.clusterAgent.rbac.automountServiceAccountToken }}
+      {{- end }}
       {{- if .Values.clusterAgent.useHostNetwork }}
       hostNetwork: {{ .Values.clusterAgent.useHostNetwork }}
       dnsPolicy: ClusterFirstWithHostNet
@@ -90,7 +93,32 @@ spec:
       securityContext:
         {{ toYaml .Values.clusterAgent.securityContext | nindent 8 }}
       {{- end }}
+      initContainers:
+      - name: init-volume
+        image: "{{ include "image-path" (dict "root" .Values "image" .Values.clusterAgent.image) }}"
+{{- if .Values.clusterAgent.containers.initContainers.securityContext }}
+        securityContext:
+{{ toYaml .Values.clusterAgent.containers.initContainers.securityContext | indent 10 }}
+{{- end }}
+{{- if .Values.clusterAgent.containers.initContainers.resources }}
+        resources:
+{{ toYaml .Values.clusterAgent.containers.initContainers.resources | indent 10 }}
+{{- end }}
+        imagePullPolicy: {{ .Values.clusterAgent.image.pullPolicy }}
+        command:
+          - bash
+          - -c
+        args:
+          - |
+            chmod -R 744 /etc/datadog-agent;
+            cp -r /etc/datadog-agent /opt
+        volumeMounts:
+          - name: config
+            mountPath: /opt/datadog-agent
       containers:
+        {{- if eq  (include "should-enable-fips" .) "true" }}
+          {{- include "fips-proxy" . | nindent 6 }}
+        {{- end }}
       - name: cluster-agent
         image: "{{ include "image-path" (dict "root" .Values "image" .Values.clusterAgent.image) }}"
         {{- with .Values.clusterAgent.command }}
@@ -123,6 +151,10 @@ spec:
 {{- end }}
 {{- end }}
         env:
+          - name: DD_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
           - name: DD_HEALTH_PORT
           {{- $healthPort := .Values.clusterAgent.healthPort }}
             value: {{ $healthPort | quote }}
@@ -161,14 +193,20 @@ spec:
             value: {{ .Values.clusterAgent.admissionController.mutateUnlabelled | quote }}
           - name: DD_ADMISSION_CONTROLLER_SERVICE_NAME
             value: {{ template "datadog.fullname" . }}-cluster-agent-admission-controller
-          {{- if .Values.clusterAgent.admissionController.configMode }}
           - name: DD_ADMISSION_CONTROLLER_INJECT_CONFIG_MODE
+            {{- if .Values.clusterAgent.admissionController.configMode }}
+            value: {{ .Values.clusterAgent.admissionController.configMode }}
+            {{- else if eq (include "trace-agent-use-uds" .) "true" }}
+            value: socket
+            {{- else if or (eq (include "trace-agent-use-tcp-port" .) "true") ( .Values.providers.gke.autopilot )}}
+            value: hostip
+            {{- else if or (not .Values.datadog.apm.enabled ) (and (eq (include "trace-agent-use-tcp-port" .) "true") (eq (include "trace-agent-use-uds" .) "true")) }}
+            value: socket
+            {{- else }}
             value: {{ .Values.clusterAgent.admissionController.configMode | quote }}
-          {{- if eq .Values.clusterAgent.admissionController.configMode "service" }}
+            {{- end }}
           - name: DD_ADMISSION_CONTROLLER_INJECT_CONFIG_LOCAL_SERVICE_NAME
             value: {{ template "localService.name" . }}
-          {{- end }}
-          {{- end }}
           {{- if .Values.providers.aks.enabled }}
           - name: DD_ADMISSION_CONTROLLER_ADD_AKS_SELECTORS
             value: "true"
@@ -176,6 +214,12 @@ spec:
           - name: DD_ADMISSION_CONTROLLER_FAILURE_POLICY
             value: {{ .Values.clusterAgent.admissionController.failurePolicy | quote }}
           {{- end }}
+          {{- if eq (include "clusterAgent-remoteConfiguration-enabled" .) "true" }}
+          - name: DD_ADMISSION_CONTROLLER_AUTO_INSTRUMENTATION_PATCHER_ENABLED
+            value: "true"
+          {{- end }}
+          - name: DD_REMOTE_CONFIGURATION_ENABLED
+            value: {{ include "clusterAgent-remoteConfiguration-enabled" . | quote }}
           {{- if .Values.datadog.clusterChecks.enabled }}
           - name: DD_CLUSTER_CHECKS_ENABLED
             value: {{ .Values.datadog.clusterChecks.enabled | quote }}
@@ -216,6 +260,12 @@ spec:
             value: {{ .Values.datadog.clusterTagger.collectKubernetesTags | quote }}
           - name: DD_KUBE_RESOURCES_NAMESPACE
             value: {{ .Release.Namespace }}
+          - name: CHART_RELEASE_NAME
+            value: {{ .Release.Name | quote }}
+          - name: AGENT_DAEMONSET
+            value: {{ template "datadog.fullname" . }}
+          - name: CLUSTER_AGENT_DEPLOYMENT
+            value: {{ template "datadog.fullname" . }}-cluster-agent
           - name: DD_ORCHESTRATOR_EXPLORER_ENABLED
             value: {{ (include "should-enable-k8s-resource-monitoring" .) | quote }}
           {{- if eq (include "should-enable-k8s-resource-monitoring" .) "true" }}
@@ -244,7 +294,9 @@ spec:
             value: {{ .Values.datadog.prometheusScrape.version | quote }}
           {{- end }}
           {{- end }}
+          {{- include "fips-envvar" . | nindent 10 }}
           {{- include "additional-env-entries" .Values.clusterAgent.env | indent 10 }}
+          {{- include "additional-env-dict-entries" .Values.clusterAgent.envDict | indent 10 }}
         livenessProbe:
 {{- $live := .Values.clusterAgent.livenessProbe }}
 {{ include "probe.http" (dict "path" "/live" "port" $healthPort "settings" $live) | indent 10 }}
@@ -256,6 +308,15 @@ spec:
 {{ toYaml .Values.clusterAgent.containers.clusterAgent.securityContext | indent 10 }}
 {{- end }}
         volumeMounts:
+          - name: datadogrun
+            mountPath: /opt/datadog-agent/run
+            readOnly: false
+          - name: varlog
+            mountPath: /var/log/datadog
+            readOnly: false
+          - name: tmpdir
+            mountPath: /tmp
+            readOnly: false
           - name: installinfo
             subPath: install_info
             {{- if eq .Values.targetSystem "windows" }}
@@ -285,7 +346,15 @@ spec:
             readOnly: true
 {{- end}}
 {{- end}}
+          - name: config
+            mountPath: /etc/datadog-agent
       volumes:
+        - name: datadogrun
+          emptyDir: {}
+        - name: varlog
+          emptyDir: {}
+        - name: tmpdir
+          emptyDir: {}
         - name: installinfo
           configMap:
             name: {{ include "agents-install-info-configmap-name" . }}
@@ -329,7 +398,8 @@ spec:
             name: {{ .Values.datadog.securityAgent.compliance.configMap }}
 {{- end}}
 {{- end}}
-
+        - name: config
+          emptyDir: {}
 {{- if .Values.clusterAgent.volumes }}
 {{ toYaml .Values.clusterAgent.volumes | indent 8 }}
 {{- end }}
@@ -356,5 +426,9 @@ spec:
         {{ template "label.os" . }}: {{ .Values.targetSystem }}
       {{- if .Values.clusterAgent.nodeSelector }}
 {{ toYaml .Values.clusterAgent.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- with .Values.clusterAgent.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
       {{- end }}
 {{ end }}

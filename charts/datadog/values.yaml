@@ -110,6 +110,7 @@ datadog:
   ## Set to 'us3.datadoghq.com' to send data to the US3 site.
   ## Set to 'us5.datadoghq.com' to send data to the US5 site.
   ## Set to 'ddog-gov.com' to send data to the US1-FED site.
+  ## Set to 'ap1.datadoghq.com' to send data to the AP1 site.
   site:  # datadoghq.com
 
   # datadog.dd_url -- The host of the Datadog intake server to send Agent data to, only set this option if you need the Agent to send data to a custom URL
@@ -156,6 +157,16 @@ datadog:
     ## Configuring this field will change the default kubernetes_state_core check configuration and the RBACs granted to Datadog Cluster Agent to run the kubernetes_state_core check.
     collectVpaMetrics: false
 
+    # datadog.kubeStateMetricsCore.collectCrdMetrics -- Enable watching CRD objects and collecting their corresponding metrics kubernetes_state.crd.*
+
+    ## Configuring this field will change the default kubernetes_state_core check configuration to run the kubernetes_state_core check.
+    collectCrdMetrics: false
+
+    # datadog.kubeStateMetricsCore.collectApiServicesMetrics -- Enable watching apiservices objects and collecting their corresponding metrics kubernetes_state.apiservice.* (Requires Cluster Agent 7.45.0+)
+
+    ## Configuring this field will change the default kubernetes_state_core check configuration and the RBACs granted to Datadog Cluster Agent to run the kubernetes_state_core check.
+    collectApiServicesMetrics: false
+
     # datadog.kubeStateMetricsCore.useClusterCheckRunners -- For large clusters where the Kubernetes State Metrics Check Core needs to be distributed on dedicated workers.
 
     ## Configuring this field will create a separate deployment which will run Cluster Checks, including Kubernetes State Metrics Core.
@@ -173,8 +184,6 @@ datadog:
     ##   <resource2>:
     ##     <label3>: <tag3>
     ##
-    ## Warning: the label must match the transformation done by kube-state-metrics,
-    ## for example tags.datadoghq.com/version becomes tags_datadoghq_com_version.
     labelsAsTags: {}
     #  pod:
     #    app: app
@@ -343,8 +352,7 @@ datadog:
   kubernetesEvents:
     # datadog.kubernetesEvents.unbundleEvents -- Allow unbundling kubernetes events, 1:1 mapping between Kubernetes and Datadog events. (Requires Cluster Agent 7.42.0+).
     unbundleEvents: false
-    # datadog.kubernetesEvents.collectedEventTypes -- Collects Helm values from a release and uses them as tags (Requires Cluster Agent 7.42.0+).
-    # This requires datadog.kubernetesEvents.unbundleEvents to be set to true
+    # datadog.kubernetesEvents.collectedEventTypes -- Event types to be collected. This requires datadog.kubernetesEvents.unbundleEvents to be set to true.
     collectedEventTypes:
     # - kind: <kubernetes resource kind> # (optional if `source`` is provided)
     #   source: <controller name> # (optional if `kind`` is provided)
@@ -377,6 +385,11 @@ datadog:
 
   # datadog.leaderLeaseDuration -- Set the lease time for leader election in second
   leaderLeaseDuration:  # 60
+
+  remoteConfiguration:
+    # datadog.remoteConfiguration.enabled -- Set to true to enable remote configuration.
+    # Consider using remoteConfiguration.enabled instead
+    enabled: false
 
   ## Enable logs agent and provide custom configs
   logs:
@@ -474,6 +487,10 @@ datadog:
   env: []
   #   - name: <ENV_VAR_NAME>
   #     value: <ENV_VAR_VALUE>
+
+  # datadog.envDict -- Set environment variables for all Agents defined in a dict
+  envDict: {}
+  #   <ENV_VAR_NAME>: <ENV_VAR_VALUE>
 
   # datadog.confd -- Provide additional check configurations (static and Autodiscovery)
 
@@ -633,9 +650,6 @@ datadog:
     # datadog.networkMonitoring.enabled -- Enable network performance monitoring
     enabled: false
 
-  ## Universal Service Monitoring is currently in private beta.
-
-  ## See https://www.datadoghq.com/blog/universal-service-monitoring-datadog/ for more details and private beta signup.
   serviceMonitoring:
     # datadog.serviceMonitoring.enabled -- Enable Universal Service Monitoring
     enabled: false
@@ -651,6 +665,10 @@ datadog:
 
       # datadog.securityAgent.compliance.checkInterval -- Compliance check run interval
       checkInterval: 20m
+
+      # datadog.securityAgent.compliance.xccdf.enabled -- Set to true to enable XCCDF (this feature is supported from Agent 7.45, and requires 160 MB extra memory for the `security-agent` container)
+      xccdf:
+        enabled: false
 
     runtime:
       # datadog.securityAgent.runtime.enabled -- Set to true to enable Cloud Workload Security (CWS)
@@ -669,11 +687,11 @@ datadog:
 
       network:
         # datadog.securityAgent.runtime.network.enabled -- Set to true to enable the collection of CWS network events
-        enabled: false
+        enabled: true
 
       activityDump:
         # datadog.securityAgent.runtime.activityDump.enabled -- Set to true to enable the collection of CWS activity dumps
-        enabled: false
+        enabled: true
 
         # datadog.securityAgent.runtime.activityDump.tracedCgroupsCount -- Set to the number of containers that should be traced concurrently
         tracedCgroupsCount: 3
@@ -794,7 +812,7 @@ clusterAgent:
     name: cluster-agent
 
     # clusterAgent.image.tag -- Cluster Agent image tag to use
-    tag: 7.42.2
+    tag: 7.46.0
 
     # clusterAgent.image.digest -- Cluster Agent image digest to use, takes precedence over tag if specified
     digest: ""
@@ -826,6 +844,11 @@ clusterAgent:
   containers:
     clusterAgent:
       # clusterAgent.containers.clusterAgent.securityContext -- Specify securityContext on the cluster-agent container.
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+    initContainers:
+      # clusterAgent.containers.initContainer.securityContext -- Specify securityContext on the initContainers.
       securityContext: {}
 
   # clusterAgent.command -- Command to run in the Cluster Agent container as entrypoint
@@ -848,11 +871,17 @@ clusterAgent:
     # clusterAgent.rbac.create -- If true, create & use RBAC resources
     create: true
 
+    # clusterAgent.rbac.flareAdditionalPermissions -- If true, add Secrets and Configmaps get/list permissions to retrieve user Datadog Helm values from Cluster Agent namespace
+    flareAdditionalPermissions: true
+
     # clusterAgent.rbac.serviceAccountName -- Specify a preexisting ServiceAccount to use if clusterAgent.rbac.create is false
     serviceAccountName: default
 
     # clusterAgent.rbac.serviceAccountAnnotations -- Annotations to add to the ServiceAccount if clusterAgent.rbac.create is true
     serviceAccountAnnotations: {}
+
+    # clusterAgent.rbac.automountServiceAccountToken -- If true, automatically mount the ServiceAccount's API credentials if clusterAgent.rbac.create is true
+    automountServiceAccountToken: true
 
   ## Provide Cluster Agent pod security configuration
   podSecurity:
@@ -911,6 +940,10 @@ clusterAgent:
   #   - secretRef:
   #       name: <SECRET_NAME>
 
+  # clusterAgent.envDict -- Set environment variables specific to Cluster Agent defined in a dict
+  envDict: {}
+  #   <ENV_VAR_NAME>: <ENV_VAR_VALUE>
+
   admissionController:
     # clusterAgent.admissionController.enabled -- Enable the admissionController to be able to inject APM/Dogstatsd config and standard tags (env, service, version) automatically into your pods
     enabled: true
@@ -920,7 +953,10 @@ clusterAgent:
 
     # clusterAgent.admissionController.configMode -- The kind of configuration to be injected, it can be "hostip", "service", or "socket".
 
-    ## If clusterAgent.admissionController.configMode is not set, the Admission Controller defaults to hostip.
+    ## If clusterAgent.admissionController.configMode is not set:
+    ##   * and datadog.apm.socketEnabled is true, the Admission Controller uses socket.
+    ##   * and datadog.apm.portEnabled is true, the Admission Controller uses hostip.
+    ##   * Otherwise, the Admission Controller defaults to hostip.
     ## Note: "service" mode relies on the internal traffic service to target the agent running on the local node (requires Kubernetes v1.22+).
     ## ref: https://docs.datadoghq.com/agent/cluster_agent/admission_controller/#configure-apm-and-dogstatsd-communication-mode
     configMode:  # "hostip", "socket" or "service"
@@ -930,6 +966,12 @@ clusterAgent:
     ## The default of Ignore means that pods will still be admitted even if the webhook is unavailable to inject them.
     ## Setting to Fail will require the admission controller to be present and pods to be injected before they are allowed to run.
     failurePolicy: Ignore
+
+    remoteInstrumentation:
+      # clusterAgent.admissionController.remoteInstrumentation.enabled -- Enable polling and applying library injection using Remote Config.
+      ## This feature is in beta, and enables Remote Config in the Cluster Agent. It also requires Cluster Agent version 7.43+.
+      ## Enabling this feature grants the Cluster Agent the permissions to patch Deployment objects in the cluster.
+      enabled: false
 
   # clusterAgent.confd -- Provide additional cluster check configurations. Each key will become a file in /conf.d.
 
@@ -991,6 +1033,12 @@ clusterAgent:
   ## By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   affinity: {}
+
+  # clusterAgent.topologySpreadConstraints -- Allow the Cluster Agent Deployment to schedule using pod topology spreading
+
+  ## By default, no constraints are set, allowing cluster defaults to be used for scheduling
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  topologySpreadConstraints: []
 
   # clusterAgent.healthPort -- Port number to use in the Cluster Agent for the healthz endpoint
   healthPort: 5556
@@ -1092,6 +1140,48 @@ existingClusterAgent:
   # existingClusterAgent.clusterchecksEnabled -- set this to false if you don’t want the agents to run the cluster checks of the joined external cluster agent
   clusterchecksEnabled: true
 
+# fips is used to enable the fips sidecar container for GOVCLOUD environments.
+fips:
+
+  enabled: false
+
+  # TODO: Option to override config of the FIPS side car: /etc/datadog-fips-proxy/datadog-fips-proxy.cfg
+  # customConfig: false
+
+  # fips.port specifies which port is used by the containers to communicate to the FIPS sidecar.
+  port: 9803
+
+  # fips.portRange specifies the number of ports used, defaults to 13  https://github.com/DataDog/datadog-agent/blob/7.44.x/pkg/config/config.go#L1564-L1577
+  portRange: 15
+
+  use_https: false
+  # fips.resources -- Resource requests and limits for the FIPS sidecar container.
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 256Mi
+    # requests:
+    #   cpu: 20m
+    #   memory: 64Mi
+
+  local_address: "127.0.0.1"
+  ## Define the Datadog image to work with
+  image:
+    ## fips.image.name -- Define the FIPS sidecar container image name.
+    name: fips-proxy
+
+    # fips.image.tag -- Define the FIPS sidecar container version to use.
+    tag: 0.5.3
+
+    # fips.image.pullPolicy -- Datadog the FIPS sidecar image pull policy
+    pullPolicy: IfNotPresent
+
+    # fips.image.digest -- Define the FIPS sidecar image digest to use, takes precedence over `fips.image.tag` if specified.
+    digest: ""
+
+    # agents.image.repository -- Override default registry + image.name for Agent
+    repository:
+
 agents:
   # agents.enabled -- You should keep Datadog DaemonSet enabled!
 
@@ -1116,7 +1206,7 @@ agents:
     name: agent
 
     # agents.image.tag -- Define the Agent version to use
-    tag: 7.42.2
+    tag: 7.46.0
 
     # agents.image.digest -- Define Agent image digest to use, takes precedence over tag if specified
     digest: ""
@@ -1159,6 +1249,9 @@ agents:
 
     # agents.rbac.serviceAccountAnnotations -- Annotations to add to the ServiceAccount if agents.rbac.create is true
     serviceAccountAnnotations: {}
+
+    # agents.rbac.automountServiceAccountToken -- If true, automatically mount the ServiceAccount's API credentials if agents.rbac.create is true
+    automountServiceAccountToken: true
 
   ## Provide Daemonset PodSecurityPolicy configuration
   podSecurity:
@@ -1241,6 +1334,10 @@ agents:
       #   - secretRef:
       #       name: <SECRET_NAME>
 
+      # agents.containers.agent.envDict -- Set environment variables specific to agent container defined in a dict
+      envDict: {}
+      #   <ENV_VAR_NAME>: <ENV_VAR_VALUE>
+
       # agents.containers.agent.logLevel -- Set logging verbosity, valid log levels are: trace, debug, info, warn, error, critical, and off.
       # If not set, fall back to the value of datadog.logLevel.
       logLevel:  # INFO
@@ -1292,6 +1389,10 @@ agents:
       #   - secretRef:
       #       name: <SECRET_NAME>
 
+      # agents.containers.processAgent.envDict -- Set environment variables specific to process-agent defined in a dict
+      envDict: {}
+      #   <ENV_VAR_NAME>: <ENV_VAR_VALUE>
+
       # agents.containers.processAgent.logLevel -- Set logging verbosity, valid log levels are: trace, debug, info, warn, error, critical, and off.
       # If not set, fall back to the value of datadog.logLevel.
       logLevel:  # INFO
@@ -1321,6 +1422,10 @@ agents:
       #       name: <CONFIGMAP_NAME>
       #   - secretRef:
       #       name: <SECRET_NAME>
+
+      # agents.containers.traceAgent.envDict -- Set environment variables specific to trace-agent defined in a dict
+      envDict: {}
+      #   <ENV_VAR_NAME>: <ENV_VAR_VALUE>
 
       # agents.containers.traceAgent.logLevel -- Set logging verbosity, valid log levels are: trace, debug, info, warn, error, critical, and off
       logLevel:  # INFO
@@ -1358,6 +1463,10 @@ agents:
       #   - secretRef:
       #       name: <SECRET_NAME>
 
+      # agents.containers.systemProbe.envDict -- Set environment variables specific to system-probe defined in a dict
+      envDict: {}
+      #   <ENV_VAR_NAME>: <ENV_VAR_VALUE>
+
       # agents.containers.systemProbe.logLevel -- Set logging verbosity, valid log levels are: trace, debug, info, warn, error, critical, and off.
       # If not set, fall back to the value of datadog.logLevel.
       logLevel:  # INFO
@@ -1393,6 +1502,10 @@ agents:
       #   - secretRef:
       #       name: <SECRET_NAME>
 
+      # agents.containers.securityAgent.envDict -- Set environment variables specific to security-agent defined in a dict
+      envDict: {}
+      #   <ENV_VAR_NAME>: <ENV_VAR_VALUE>
+
       # agents.containers.securityAgent.logLevel -- Set logging verbosity, valid log levels are: trace, debug, info, warn, error, critical, and off.
       # If not set, fall back to the value of datadog.logLevel.
       logLevel:  # INFO
@@ -1401,10 +1514,10 @@ agents:
       resources: {}
       #  requests:
       #    cpu: 100m
-      #    memory: 200Mi
+      #    memory: 300Mi
       #  limits:
       #    cpu: 100m
-      #    memory: 200Mi
+      #    memory: 300Mi
 
       # agents.containers.securityAgent.ports -- Allows to specify extra ports (hostPorts for instance) for this container
       ports: []
@@ -1418,6 +1531,8 @@ agents:
       #  limits:
       #    cpu: 100m
       #    memory: 200Mi
+      # agents.containers.initContainers.securityContext -- Allows you to overwrite the default container SecurityContext for the init containers.
+      securityContext: {}
 
   # agents.volumes -- Specify additional volumes to mount in the dd-agent container
   volumes: []
@@ -1557,7 +1672,7 @@ clusterChecksRunner:
     name: agent
 
     # clusterChecksRunner.image.tag -- Define the Agent version to use
-    tag: 7.42.2
+    tag: 7.46.0
 
     # clusterChecksRunner.image.digest -- Define Agent image digest to use, takes precedence over tag if specified
     digest: ""
@@ -1595,6 +1710,9 @@ clusterChecksRunner:
     # clusterChecksRunner.rbac.serviceAccountAnnotations -- Annotations to add to the ServiceAccount if clusterChecksRunner.rbac.dedicated is true
     serviceAccountAnnotations: {}
 
+    # clusterChecksRunner.rbac.automountServiceAccountToken -- If true, automatically mount the ServiceAccount's API credentials if clusterChecksRunner.rbac.create is true
+    automountServiceAccountToken: true
+
     # clusterChecksRunner.rbac.serviceAccountName -- Specify a preexisting ServiceAccount to use if clusterChecksRunner.rbac.create is false
     serviceAccountName: default
 
@@ -1621,6 +1739,12 @@ clusterChecksRunner:
   ## By default, ClusterChecks Deployment Pods are preferred to run on different Nodes.
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   affinity: {}
+
+  # clusterChecksRunner.topologySpreadConstraints -- Allow the ClusterChecks Deployment to schedule using pod topology spreading
+
+  ## By default, no constraints are set, allowing cluster defaults to be used for scheduling
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  topologySpreadConstraints: []
 
   # clusterChecksRunner.strategy -- Allow the ClusterChecks deployment to perform a rolling update on helm update
 
@@ -1714,6 +1838,10 @@ clusterChecksRunner:
   #   - secretRef:
   #       name: <SECRET_NAME>
 
+  # clusterChecksRunner.envDict -- Set environment variables specific to Cluster Checks Runner defined in a dict
+  envDict: {}
+  #   <ENV_VAR_NAME>: <ENV_VAR_VALUE>
+
   # clusterChecksRunner.volumes -- Specify additional volumes to mount in the cluster checks container
   volumes: []
   #   - hostPath:
@@ -1747,6 +1875,10 @@ datadog-crds:
     datadogMetrics: true
 
 kube-state-metrics:
+  # kube-state-metrics.image.repository -- Default kube-state-metrics image repository.
+  image:
+    repository: registry.k8s.io/kube-state-metrics/kube-state-metrics
+
   rbac:
     # kube-state-metrics.rbac.create -- If true, create & use RBAC resources
     create: true
@@ -1800,3 +1932,9 @@ providers:
   aks:
     # providers.aks.enabled -- Activate all specifities related to AKS configuration. Required as currently we cannot auto-detect AKS.
     enabled: false
+
+remoteConfiguration:
+  # remoteConfiguration.enabled -- Set to true to enable remote configuration on the Cluster Agent (if set) and the node agent.
+  # This will override `datadog.remoteConfiguration.enabled` and `clusterAgent.admissionController.remoteInstrumentation.enabled`.
+  # Preferred way to enable Remote Configuration.
+  enabled: false

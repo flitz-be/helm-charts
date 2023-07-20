@@ -33,6 +33,7 @@
   env:
     {{- include "containers-common-env" . | nindent 4 }}
     {{- include "containers-cluster-agent-env" . | nindent 4 }}
+    {{- include "fips-envvar" . | nindent 4 }}
     - name: DD_LOG_LEVEL
       value: {{ .Values.agents.containers.traceAgent.logLevel | default .Values.datadog.logLevel | quote }}
     - name: DD_APM_ENABLED
@@ -50,18 +51,24 @@
       value: {{ .Values.datadog.dogstatsd.socketPath | quote }}
     {{- end }}
     {{- include "additional-env-entries" .Values.agents.containers.traceAgent.env | indent 4 }}
+    {{- include "additional-env-dict-entries" .Values.agents.containers.traceAgent.envDict | indent 4 }}
   volumeMounts:
     - name: config
       mountPath: {{ template "datadog.confPath" . }}
+      readOnly: true
+    - name: logdatadog
+      mountPath: {{ template "datadog.logDirectoryPath" . }}
+      readOnly: false # Need RW to write logs
     {{- if (not .Values.providers.gke.autopilot) }}
     - name: auth-token
       mountPath: {{ template "datadog.confPath" . }}/auth
       readOnly: true
     {{- end }}
-    {{- if .Values.agents.useConfigMap }}
+    {{- if and .Values.agents.useConfigMap (eq .Values.targetSystem "linux")}}
     - name: datadog-yaml
       mountPath: {{ template "datadog.confPath" . }}/datadog.yaml
       subPath: datadog.yaml
+      readOnly: true
     {{- end }}
     {{- if eq .Values.targetSystem "linux" }}
     {{- if not .Values.providers.gke.autopilot }}
@@ -74,16 +81,16 @@
       mountPropagation: {{ .Values.datadog.hostVolumeMountPropagation }}
       readOnly: true
     {{- end }}
-    - name: logdatadog
-      mountPath: /var/log/datadog
     - name: tmpdir
       mountPath: /tmp
-      readOnly: false
+      readOnly: false # Need RW for tmp directory
     - name: dsdsocket
       mountPath: {{ (dir .Values.datadog.dogstatsd.socketPath) }}
+      readOnly: false # Need RW for UDS DSD socket
     {{- if and (eq (include "trace-agent-use-uds" .) "true") (ne (dir .Values.datadog.dogstatsd.socketPath) (dir .Values.datadog.apm.socketPath)) }}
     - name: apmsocket
       mountPath: {{ (dir .Values.datadog.apm.socketPath) }}
+      readOnly: false # Need RW for UDS APM socket
     {{- end }}
     {{- end }}
     {{- include "container-crisocket-volumemounts" . | nindent 4 }}

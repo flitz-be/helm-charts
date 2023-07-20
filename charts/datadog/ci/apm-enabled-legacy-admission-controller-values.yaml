@@ -1,14 +1,12 @@
 datadog:
   apiKey: "00000000000000000000000000000000"
   appKey: "0000000000000000000000000000000000000000"
-
+  apm:
+    enabled: true
 clusterAgent:
   enabled: true
-
-securityAgent:
-  compliance:
+  admissionController:
     enabled: true
-    # Set an empty configMap so that we don't try to mount one
-    configMap:
-    xccdf:
-      enabled: true
+agents:
+  localService:
+    forceLocalServiceEnabled: false

@@ -186,6 +186,18 @@ Return the container runtime socket
 {{- end -}}
 
 {{/*
+Return agent log directory path
+*/}}
+{{- define "datadog.logDirectoryPath" -}}
+{{- if eq .Values.targetSystem "linux" -}}
+/var/log/datadog
+{{- end -}}
+{{- if eq .Values.targetSystem "windows" -}}
+C:/ProgramData/Datadog/logs
+{{- end -}}
+{{- end -}}
+
+{{/*
 Return agent config path
 */}}
 {{- define "datadog.confPath" -}}
@@ -299,6 +311,17 @@ Return true if a security-agent feature is enabled.
 */}}
 {{- define "security-agent-feature" -}}
 {{- if or .Values.datadog.securityAgent.compliance.enabled .Values.datadog.securityAgent.runtime.enabled .Values.datadog.securityAgent.runtime.fimEnabled -}}
+true
+{{- else -}}
+false
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return true if the fips side car container should be created.
+*/}}
+{{- define "should-enable-fips" -}}
+{{- if and (not .Values.providers.gke.autopilot) (eq .Values.targetSystem "linux") .Values.fips.enabled -}}
 true
 {{- else -}}
 false
@@ -658,6 +681,20 @@ Returns env vars correctly quoted and valueFrom respected
 {{- end -}}
 
 {{/*
+Returns env vars correctly quoted and valueFrom respected, defined in a dict
+*/}}
+{{- define "additional-env-dict-entries" -}}
+{{- range $key, $value := . }}
+- name: {{ $key }}
+{{- if kindIs "map" $value }}
+{{ toYaml $value | indent 2 }}
+{{- else }}
+  value: {{ $value | quote }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+{{/*
 Return the appropriate apiVersion for PodDisruptionBudget policy APIs.
 */}}
 {{- define "policy.poddisruptionbudget.apiVersion" -}}
@@ -748,6 +785,28 @@ Note: GKE Autopilot clusters only use COS (see https://cloud.google.com/kubernet
 */}}
 {{- define "can-mount-host-usr-src" -}}
 {{- if or .Values.providers.gke.autopilot .Values.providers.gke.cos -}}
+true
+{{- else -}}
+false
+{{- end -}}
+{{- end -}}
+
+{{/*
+Returns whether Remote Configuration should be enabled in the agent
+*/}}
+{{- define "datadog-remoteConfiguration-enabled" -}}
+{{- if or .Values.remoteConfiguration.enabled .Values.datadog.remoteConfiguration.enabled -}}
+true
+{{- else -}}
+false
+{{- end -}}
+{{- end -}}
+
+{{/*
+Returns whether Remote Configuration should be enabled in the cluster agent
+*/}}
+{{- define "clusterAgent-remoteConfiguration-enabled" -}}
+{{- if or .Values.remoteConfiguration.enabled .Values.clusterAgent.admissionController.remoteInstrumentation.enabled -}}
 true
 {{- else -}}
 false

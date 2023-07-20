@@ -1,5 +1,268 @@
 # Datadog changelog
 
+## 3.33.3
+
+* Remove `datadog.dataStreamsMonitoring.enabled` parameter.
+
+## 3.33.2
+
+* Add emptyDir and volumeMounts for Agent log files in Windows containers to fix log file access
+
+# 3.33.0
+
+* Default `Agent` and `Cluster-Agent` to `7.46.0` version.
+
+## 3.32.8
+
+* Always set the Remote Configuration environment variable
+
+## 3.32.7
+
+* Update the cluster agent network policy to allow telemetry submission.
+
+## 3.32.6
+
+* Fix cluster agent pod failing to start when securityContext is set.
+
+## 3.32.5
+
+* Fix comment for datadog.kubernetesEvents.collectedEventTypes in values.yaml.
+
+## 3.32.4
+
+* Add futimens, utime, utimes and utimensat syscalls to system-probe seccomp.
+
+## 3.32.3
+
+* Allows configuration of `dogstatsd.tagCardinality` independent of `dogstatsd.originDetection`.
+
+## 3.32.2
+
+* Set the `priority` field of the OpenShift’s SCC to `null` in order to not have a higher priority than the OpenShift 4.11+ default `restricted-v2` SCC.
+
+## 3.32.1
+
+* Add AP1 Site Comment at `value.yaml`.
+* Fix CVE in the FIPS compliant side car container
+
+## 3.32.0
+
+* Add a new preferred parameter to enable Remote Configuration on both the agent and the cluster agent.
+
+## 3.31.0
+
+* Default `Agent` and `Cluster-Agent` to `7.45.0` version.
+
+## 3.30.10
+
+* Updated pointerdir mountPath for Windows deployments.
+
+## 3.30.9
+
+* Pass its pod name to the cluster-agent. This is used by cluster agent 7.46+ to make leader election work when using host network.
+
+## 3.30.8
+
+* Update `fips.image.tag` to `0.5.2` version
+
+## 3.30.7
+
+* Fix Windows support of `agents.customAgentConfig` to avoid bind mount of a file.
+
+## 3.30.6
+
+* Adds `datadog.kubeStateMetricsCore.collectApiServicesMetrics` (`false` by default) to collect apiservices metrics in Kube State Metrics Core.
+  Note: APIServices metrics collection requires Cluster Agent 7.45.0+.
+
+## 3.30.5
+
+* Add `list` and `watch` permissions of `apiservices` resources for the `kubernetes_state_core` check.
+
+## 3.30.4
+
+* Remove USM private beta comments.
+
+## 3.30.3
+
+* Remove resourceName field from `create` permission of `leases` in `cluster-agent-rbac`.
+
+## 3.30.2
+
+* Add `get`, `create`, `update` permissions of `leases` to `cluster-agent-rbac`.
+
+## 3.30.1
+
+* Remove guidance that users must manually convert tag syntax for `labelsAsTags`
+
+## 3.30.0
+
+* Add `datadog.dataStreamsMonitoring.enabled` parameter to enable Data Stream Monitoring.
+
+## 3.29.3
+
+* Add `inotify_add_watch`, `inotify_init`, `inotify_init1`, and `inotify_rm_watch` to the default seccomp profile of system-probe.
+
+## 3.29.2
+
+* Default `Agent` and `Cluster-Agent` to `7.44.1` version.
+
+## 3.29.1
+
+* Add `customresourcedefinitions` option to enable CRD metrics collection in KSM Core.
+
+## 3.29.0
+
+* Add `datadog.securityAgent.compliance.xccdf.enabled` parameter to enable XCCDF feature in CSPM.
+
+## 3.28.1
+
+* Add `memfd_create` syscall to seccomp profile for system-probe.
+
+## 3.28.0
+
+* Adding support to use a FIPS compliant side car container in the Datadog Cluster Agent, the Datadog Agent, and the Datadog Cluster Check Runners pods.
+
+## 3.27.0
+
+* Default `Agent` and `Cluster-Agent` to `7.44.0` version.
+
+## 3.26.2
+
+* Adds statx syscall to seccomp for system-probe
+
+## 3.26.1
+
+* Add support for `topologySpreadConstraints` in pod templates
+
+## 3.26.0
+
+* Default `Agent` and `Cluster-Agent` to `7.43.2` version.
+
+## 3.25.5
+
+* Adds securityContext and resource annotations for initContainers in cluster agent
+
+## 3.25.4
+
+* Add `list` and `watch` permissions of `customresourcedefinitions` to `kube-state-metrics-core-rbac`.
+
+## 3.25.3
+
+* Remote Config is now enabled even if the Cluster Agent is disabled.
+
+## 3.25.2
+
+* Fix a bug with `datadog.remoteConfiguration.enabled` where Remote Config was only enabled for the main agent container but not other containers such as the trace-agent.
+
+## 3.25.1
+
+* Fix CI to unblock release of charts
+
+## 3.25.0
+
+* Automatically collect Security Profiles when CWS is enabled.
+
+## 3.24.0
+
+* Move `kube-state-metrics` default image registry from k8s.gcr.io to registry.k8s.io.
+
+## 3.23.0
+
+* Injects additional environment variables in the Cluster Agent
+* Add `clusterAgent.rbac.flareAdditionalPermissions` parameter to enable user Helm values retrieval in DCA flare (`true` by default)
+
+## 3.22.0
+
+* Auto-configure `clusterAgent.admissionController.configMode` based on `datadog.apm.socketEnabled|portEnabled`.
+
+## 3.21.0
+
+* Add `datadog.remoteConfiguration.enabled` parameter to enable remote configuration.
+
+## 3.20.3
+
+* Fix command script in linux init container to prevent blocking deployment in GKE Autopilot on Rapid release channel.
+* Only mount DogStatsD socket in non-Autopilot environments.
+
+## 3.20.2
+
+* Fix R/W volume mounts for CRI on Windows
+
+## 3.20.1
+
+* Fix command args in linux init container to prevent blocking deployment in GKE Autopilot.
+
+## 3.20.0
+
+* Enable CWS network detections by default.
+
+## 3.19.2
+
+* Fix R/W volume mounts in init containers on Windows
+
+## 3.19.1
+
+* Mount emptyDir volumes in `/etc/datadog-agent` and `/tmp` to allow the cluster-agent to write files in those
+  locations with read-only root filesystem.
+
+## 3.19.0
+
+* Declare `readOnly` in volumeMounts.
+
+## 3.18.0
+
+* Default `Agent` and `Cluster-Agent` image tags to `7.43.1`.
+
+## 3.17.1
+
+* Fix Cilium egress rules to kube-apiserver entities.
+
+## 3.17.0
+
+* Add the following configurations which allow environment variables to be defined in a dictionary:
+  * `agents.containers.agent.envDict`
+  * `agents.containers.processAgent.envDict`
+  * `agents.containers.securityAgent.envDict`
+  * `agents.containers.systemProbe.envDict`
+  * `agents.containers.traceAgent.envDict`
+  * `clusterAgent.envDict`
+  * `clusterChecksRunner.envDict`
+  * `datadog.envDict`
+
+## 3.16.2
+
+* Mount an emptyDir volume in `/opt/datadog-agent/run` to allow the cluster-agent to write files in that location
+  with read-only root filesystem.
+
+## 3.16.1
+
+* Fix `cluster-agent` deployment to allow the cluster-agent to write file in `/var/log/datadog` when it runs with
+  read-only root filesystem.
+
+## 3.16.0
+
+* Add new checksum to cluster agent deployment base on all cluster-agent configmap configuration.
+
+## 3.15.0
+
+* Beta: Enable remote configuration if `clusterAgent.admissionController.remoteInstrumentation` is enabled.
+
+## 3.14.0
+
+* Make the root filesystem of the cluster agent container read only by default
+
+## 3.13.0
+
+* Beta: Support APM library injection with Remote Configuration.
+
+## 3.12.0
+
+* Add `automountServiceAccountToken` option to configure automatic mounting of ServiceAccount's API credentials
+
+## 3.11.0
+
+* Default `Agent` and `Cluster-Agent` image tags to `7.43.0`.
+
 ## 3.10.9
 
 * Default `Agent` and `Cluster-Agent` image tags to `7.42.2`.
