@@ -44,7 +44,7 @@ spec:
         {{ if .Values.existingSeed }}
         - name: copy-seed
           image: busybox
-          command: ['sh', '-c', 'cat /seed/* >> /data/']
+          command: ['sh', '-c', 'cat /seed/channel_seed.dat >> /data/channel_seed.dat && cat /seed/node_seed.dat >> /data/node_seed.dat']
           volumeMounts:
             - name: seed
               mountPath: /seed
