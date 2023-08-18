@@ -41,6 +41,16 @@ spec:
             - name: data
               mountPath: /data
         {{ end }}
+        {{ if .Values.existingSeed }}
+        - name: copy-seed
+          image: busybox
+          command: ['sh', '-c', 'cat /seed/* >> /data/']
+          volumeMounts:
+            - name: seed
+              mountPath: /seed
+            - name: data
+              mountPath: /data
+        {{ end }}
         {{ if .Values.pluginConfig.enabled }}
         - name: copy-plugin-config
           image: busybox
@@ -95,6 +105,13 @@ spec:
             sources:
             - secret:
                 name: {{ .Values.extraConfig.secretName }}
+        {{ end }}
+        {{ if .Values.existingSeed }}
+        - name: seed
+          projected:
+            sources:
+            - secret:
+                name: {{ .Values.existingSeed }}
         {{ end }}
         {{ if .Values.pluginConfig.enabled }}
         - name: pluginconfig

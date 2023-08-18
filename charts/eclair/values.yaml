@@ -57,6 +57,15 @@ pluginConfig:
   enabled: false
   secretName: eclair-plugin-config
 
+# if specified, must be the name of a secret
+# that contains exactly 2 data fields:
+# - node_seed.dat -> SECURELY GENERATED 32 RANDOM bytes
+# - channel_seed.dat -> SECURELY GENERATED 32 RANDOM bytes
+# these will be used as the nodes' seed
+# if this is used in conjunction with a postgres database, then no persistent volume mount is needed.
+# to generate such a file: dd if=/dev/urandom of=node_seed.dat bs=32 count=1
+# existingSeed: eclair-seed-secret
+
 rtl:
   enabled: false
   eclairExtraConfigFile: eclair-extra.conf
