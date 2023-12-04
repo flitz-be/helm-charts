@@ -4,11 +4,11 @@ dependencies:
 - condition: postgresql.enabled
   name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 11.1.4
+  version: 13.2.23
 - condition: redis.enabled
   name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 16.3.1
+  version: 18.4.0
 description: Apache Superset is a modern, enterprise-ready business intelligence web
   application
 maintainers:
