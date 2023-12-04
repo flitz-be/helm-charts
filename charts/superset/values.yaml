@@ -49,6 +49,8 @@ bootstrapScript: |
 # Note: this secret must have the key superset_config.py in it and can include other files as well
 configFromSecret: '{{ template "superset.fullname" . }}-config'
 
+createEnvSecret: true
+
 # -- The name of the secret which we will use to populate env vars in deployed pods
 # This can be useful for secret keys, etc.
 envFromSecret: '{{ template "superset.fullname" . }}-env'
