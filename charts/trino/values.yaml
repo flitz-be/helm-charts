@@ -6,9 +6,11 @@ image:
   repository: trinodb/trino
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart version.
-  tag: latest
+  # Same value as Chart.yaml#appVersion
+  tag: 432
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: registry-credentials
 
 server:
   workers: 2
@@ -33,9 +35,6 @@ server:
     authenticationType: ""
     query:
       maxMemory: "4GB"
-      maxMemoryPerNode: "1GB"
-    memory:
-      heapHeadroomPerNode: "1GB"
   exchangeManager:
     name: "filesystem"
     baseDir: "/tmp/trino-local-file-system-exchange-manager"
@@ -109,8 +108,11 @@ eventListenerProperties: {}
 
 additionalCatalogs: {}
 
-# Array of EnvVar (https://v1-18.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#envvar-v1-core)
+# Array of EnvVar (https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#envvar-v1-core)
 env: []
+
+# Array of EnvFromSource (https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#envfromsource-v1-core)
+envFrom: []
 
 initContainers: {}
   # coordinator:
@@ -123,24 +125,38 @@ initContainers: {}
   #     image: busybox:1.28
   #     command: ['sh', '-c', 'echo The worker is running! && sleep 3600']
 
+sidecarContainers: {}
+#   coordinator:
+#     - name: side-coordinator
+#       image: busybox:1.28
+#       imagePullPolicy: IfNotPresent
+#       command: ['sleep', '1']
+#   worker:
+#     - name: side-worker
+#       image: busybox:1.28
+#       imagePullPolicy: IfNotPresent
+#       command: ['sleep', '1']
+
 securityContext:
   runAsUser: 1000
   runAsGroup: 1000
+
+shareProcessNamespace:
+  coordinator: false
+  worker: false
 
 service:
   type: ClusterIP
   port: 8080
 
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
 auth: {}
   # Set username and password
   # https://trino.io/docs/current/security/password-file.html#file-format
   # passwordAuth: "username:encrypted-password-with-htpasswd"
+  # Set users' groups
+  # https://trino.io/docs/current/security/group-file.html#file-format
+  # refreshPeriod: 5s
+  # groups: "group_name:user_1,user_2,user_3"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -152,6 +168,9 @@ serviceAccount:
   annotations: {}
 
 secretMounts: []
+  # - name: sample-secret
+  #   secretName: sample-secret
+  #   path: /secrets/sample.json
 
 coordinator:
   jvm:
@@ -161,7 +180,15 @@ coordinator:
       g1:
         heapRegionSize: "32M"
 
+  config:
+    memory:
+      heapHeadroomPerNode: ""
+    query:
+      maxMemoryPerNode: "1GB"
+
   additionalJVMConfig: {}
+
+  additionalExposedPorts: {}
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
@@ -174,6 +201,36 @@ coordinator:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+
+  livenessProbe: {}
+    # initialDelaySeconds: 20
+    # periodSeconds: 10
+    # timeoutSeconds: 5
+    # failureThreshold: 6
+    # successThreshold: 1
+  readinessProbe: {}
+    # initialDelaySeconds: 20
+    # periodSeconds: 10
+    # timeoutSeconds: 5
+    # failureThreshold: 6
+    # successThreshold: 1
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  additionalConfigFiles: {}
+
+  annotations: {}
+
+  labels: {}
+
+  secretMounts: []
+    # - name: sample-secret
+    #   secretName: sample-secret
+    #   path: /secrets/sample.json
 
 worker:
   jvm:
@@ -183,7 +240,15 @@ worker:
       g1:
         heapRegionSize: "32M"
 
+  config:
+    memory:
+      heapHeadroomPerNode: ""
+    query:
+      maxMemoryPerNode: "1GB"
+
   additionalJVMConfig: {}
+
+  additionalExposedPorts: {}
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
@@ -196,3 +261,84 @@ worker:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+
+  livenessProbe: {}
+    # initialDelaySeconds: 20
+    # periodSeconds: 10
+    # timeoutSeconds: 5
+    # failureThreshold: 6
+    # successThreshold: 1
+  readinessProbe: {}
+    # initialDelaySeconds: 20
+    # periodSeconds: 10
+    # timeoutSeconds: 5
+    # failureThreshold: 6
+    # successThreshold: 1
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  additionalConfigFiles: {}
+
+  annotations: {}
+
+  labels: {}
+
+  secretMounts: []
+    # - name: sample-secret
+    #   secretName: sample-secret
+    #   path: /secrets/sample.json
+
+kafka:
+  mountPath: "/etc/trino/schemas"
+  tableDescriptions: {}
+    # Custom kafka table descriptions that will be mounted in mountPath
+    # testschema.json: |-
+    #   {
+    #     "tableName": "testtable",
+    #     "schemaName": "testschema",
+    #     "topicName": "testtopic",
+    #     "key": {
+    #       "dataFormat": "json",
+    #       "fields": [
+    #         {
+    #           "name": "_key",
+    #           "dataFormat": "VARCHAR",
+    #           "type": "VARCHAR",
+    #           "hidden": "false"
+    #         }
+    #       ]
+    #     },
+    #     "message": {
+    #       "dataFormat": "json",
+    #       "fields": [
+    #         {
+    #           "name": "id",
+    #           "mapping": "id",
+    #           "type": "BIGINT"
+    #         },
+    #         {
+    #           "name": "test_field",
+    #           "mapping": "test_field",
+    #           "type": "VARCHAR"
+    #         }
+    #       ]
+    #     }
+    #   }
+commonLabels: {}  # Labels that get applied to every resource's metadata
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  #  - host: trino.example.com
+  #    paths:
+  #      - path: /
+  #        pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
