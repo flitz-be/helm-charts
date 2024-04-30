@@ -42,6 +42,10 @@ service:
 
 containerPort: 8080
 
+checksum:
+  enabled: false
+  filename: /this_file_should_exist.yaml
+
 # extraPorts:
 #   - name: hoi
 #     port: 9050
@@ -62,6 +66,12 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+# readinessProbe:
+#   httpGet:
+#     path: /
+#     port: 3000
+#   initialDelaySeconds: 30
+#   periodSeconds: 10
 
 # volumeMounts:
 #   - name: test

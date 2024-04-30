@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: {{ include "generic-microservice.fullname" . }}
+      {{- include "generic-microservice.selectorLabels" . | nindent 6 }}
   podMetricsEndpoints:
   - port: prometheus
 {{- end }}

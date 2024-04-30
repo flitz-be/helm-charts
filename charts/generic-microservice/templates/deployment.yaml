@@ -17,6 +17,11 @@ spec:
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.checksum.enabled }}
+      # hack (don't use checksum with other annotations, things will go wrong)
+      annotations:
+        checksum/config: {{ include (print $.Values.checksum.filename) . | sha256sum }}
+      {{- end }}
       labels:
         {{- include "generic-microservice.selectorLabels" . | nindent 8 }}
     spec:
@@ -30,6 +35,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- with .Values.command }}
           command:
+                {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
                 {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.args }}

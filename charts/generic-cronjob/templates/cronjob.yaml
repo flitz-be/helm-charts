@@ -44,7 +44,7 @@ spec:
         {{- end }}
           containers:
           - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
-            imagePullPolicy: {{ $.Values.image.imagePullPolicy }}
+            imagePullPolicy: {{ $.Values.image.pullPolicy }}
             name: {{ $job.name }}
             env:
             {{- range $key, $value := $.Values.env }}
