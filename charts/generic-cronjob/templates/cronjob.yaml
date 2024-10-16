@@ -47,6 +47,17 @@ spec:
             imagePullPolicy: {{ $.Values.image.pullPolicy }}
             name: {{ $job.name }}
             env:
+            {{- range $key, $value := $job.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- range $key, $value := $job.secrets }}
+            - name: {{ $key | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $value.secretName }}
+                  key: {{ $value.secretKey }}
+            {{- end }}
             {{- range $key, $value := $.Values.env }}
             - name: {{ $key | quote }}
               value: {{ $value | quote }}
