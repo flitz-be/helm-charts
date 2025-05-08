@@ -2,6 +2,8 @@
 datadog:
   apiKey: "00000000000000000000000000000000"
   appKey: "0000000000000000000000000000000000000000"
+  envDict:
+    HELM_FORCE_RENDER: true  # workaround to force helm template rendering of GKE Autopilot WorkloadAllowlist-enabled resources
 
   logs:
     enabled: true
@@ -13,7 +15,7 @@ datadog:
     enabled: true
 
   containerRuntimeSupport:
-    enabled: false
+    enabled: true
 
 providers:
   gke:
